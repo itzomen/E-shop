@@ -2,10 +2,12 @@
 This is a Django 3 E-commerce website or online shop
 
 # Set up
-create your virtual env
-install the requirements using the following command, if python 3 is by default omit the "3"
-python3 -m pip install -r requirements.txt
+Steps:
+
+1. Clone/pull/download this repository
+2. Create a virtualenv with `virtualenv env` and install dependencies with `pip install -r requirements.txt`
+3. Configure your .env variable
 
 # Runserver
-python3 manage.py runserver
+python manage.py runserver
 
