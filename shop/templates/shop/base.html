@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}E shop{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  </head>
+  <body>
+      <div id="header"> 
+          <a href="/" class="logo">E shop</a> 
+      </div>
+      <div id="subheader">
+          <div class="cart">
+            Your cart is empty.
+          </div>
+      </div>
+      <div id="content">
+          
+          {% block content %}
+              
+          {% endblock content %}
+              
+      </div>
+    
+  </body>
+</html>
