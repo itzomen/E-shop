@@ -4,7 +4,7 @@ from .models import Category, Item
 # Create your views here.
 
 def item_list(request, category_slug=None):
-    category_slug = None
+    category = None
     categories = Category.objects.all()
     items = Item.objects.filter(in_stock=True)
     if category_slug:
