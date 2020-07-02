@@ -18,7 +18,7 @@
         <h1>
             {% if category %}{{ category.name }}{% else %}Items{% endif %}
         </h1>
-      {% for item in items %}
+        {% for item in items %}
         <div class="product">
             <div class="info-large">
                 <h4><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></h4>
@@ -30,25 +30,6 @@
                     <span>43€</span> {{ item.price }}€
                 </div>
                  
-                <h3>COLORS</h3>
-                <div class="colors-large">
-                    <ul>
-                        <li><a href="" style="background:#222"><span></span></a></li>
-                        <li><a href="" style="background:#6e8cd5"><span></span></a></li>
-                        <li><a href="" style="background:#f56060"><span></span></a></li>
-                        <li><a href="" style="background:#44c28d"><span></span></a></li>
-                    </ul> 
-                </div>
-    
-                <h3>SIZE</h3>
-                <div class="sizes-large">
-                    <span>XS</span>
-                    <span>S</span>
-                    <span>M</span>
-                    <span>L</span>
-                    <span>XL</span>
-                    <span>XXL</span>
-                </div>
                 
                 <button class="add-cart-large">Add To Cart</button>                          
                              
@@ -57,7 +38,7 @@
                 <div class="product-front">
                     <div class="shadow"></div>
                     
-                    <img src="{% if category.image %}{{ category.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}">
+                    <img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}">
                     
                     <div class="image_overlay"></div>
                     <div class="add_to_cart">Add to cart</div>
@@ -70,18 +51,8 @@
                             <span class="product_name"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></span>    
                             <p>Summer dress</p>                                            
                             
-                            <div class="product-options">
-                            <strong>SIZES</strong>
-                            <span>XS, S, M, L, XL, XXL</span>
-                            <strong>COLORS</strong>
-                            <div class="colors">
-                                <div class="c-blue"><span></span></div>
-                                <div class="c-red"><span></span></div>
-                                <div class="c-white"><span></span></div>
-                                <div class="c-green"><span></span></div>
-                            </div>
                         </div>                       
-                        </div>                         
+                                                
                     </div>
                 </div>
                 
@@ -111,7 +82,7 @@
                 </div>	  
             </div>	
         </div>
-      {% endfor %}
+        {% endfor %}
     </div>
 _
 {% endblock content %} 
