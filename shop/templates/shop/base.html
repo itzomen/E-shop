@@ -2,76 +2,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <title>{% block title %}My shop{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
   </head>
   <body>
-    
-  
-  
-    
-    <div id="wrapper">
-    <div class="cart-icon-bottom">
+    <div class="header">
+      <a href="/" class="logo">E shop</a>
     </div>
-    
-    <div id="checkout">
-      CHECKOUT
-    </div>
-    
-    <div id="info">
-      <p class="i1">info</p>
-    <p>    Follow me on <a href="" style="color:#ea4c89" target="_blank">Dribbble</a> | <a style="color:#2aa9e0" href="" target="_blank">Twitter</a></p>
-    </div>
-    
-      <div id="header">	
-        <ul>
-              <li><a href="/" class="logo">E shop</a> </li>
-              <li><a href="">BRANDS</a></li>
-              <li><a href="">DESIGNERS</a></li>
-              <li><a href="">CONTACT</a></li>                                              
-          </ul>		
+    <div id="subheader">
+      <div class="cart">
+        No items in cart.
       </div>
-      <div id="sidebar">
-        <h3>CART</h3>
-        <div id="cart">
-    	   <span class="empty">No items in cart.</span>       
-        </div>
-          
-        <h3>CATEGORIES</h3>
-        <div class="checklist categories">
-          <ul>
-              <li >
-              <a {% if not category %}class="selected"{% endif %} href="{% url 'shop:item_list' %}"><span></span>All</a>
-              </li>
-          
-              {% for c in categories %}
-              <li >
-               <a {% if category.slug == c.slug %}class="selected"{% endif %} href="{{ c.get_absolute_url }}"><span></span>{{ c.name }}</a>
-              </li>
-              {% endfor %} 
-          </ul>
-        </div>
-        
-        <h3>COLORS</h3>
-     
-        
-        
-        
-        Showing 1–9 of 48 results 
-      </div>
-
-      
-          
-          {% block content %}
-              
-          {% endblock content %}
-              
-      
-     
     </div>
-
+    <div id="content">
+      {% block content %}
+              
+      {% endblock content %}
+    </div>
+    
+ 
     <script src="{% static 'js/main.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   </body>
