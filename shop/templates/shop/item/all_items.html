@@ -2,35 +2,20 @@
 {% load static %}
 
     
-{% block title %}
-    
-    {% if category %}{{ category.name }}{% else %} Items {% endif %}
-        
-{% endblock title %}
+
 
 {% include header %}
+{% include sidebar %}
+
+
 
 {% block content %}
 
 
-  <div id="sidebar">
-    <h3>Categories</h3>
-    <ul>
-       <li {% if not category %}class="selected"{% endif %}>
-       <a href="{% url 'shop:item_list' %}">All</a>
-       </li>
-       {% for c in categories %}
-       <li {% if category.slug == c.slug %}class="selected"
-       {% endif %}>
-       <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-       </li>
-       {% endfor %}
-    </ul>
-  </div>
+  
 
   <div id="main" class="product-list">
-    <h1>{% if category %}{{ category.name }}{% else %}Items
-    {% endif %}</h1>
+    <h1>{% if category %}{{ category.name }}{% else %}Items{% endif %}</h1>
     {% for item in items %}
       <div class="item">
           <a href="{{ item.get_absolute_url }}">

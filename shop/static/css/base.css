@@ -143,14 +143,14 @@ ul.errorlist {
 }
 
 #content {
-    padding:0 100px;
+    padding:0 2px;
     overflow:hidden;
     
 }
 
 #sidebar {
-    width:220px;
-    padding:30px 20px 0 0;
+    width:200px;
+    padding: 0 4px;
     float: left;
 }
 
@@ -181,7 +181,7 @@ ul.errorlist {
 #main {
     float:left;
     width: 96%;
-    margin-right:-220px; 
+    margin-right:-220px;
     overflow:hidden;
 }
 
