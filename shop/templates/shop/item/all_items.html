@@ -8,8 +8,11 @@
         
 {% endblock title %}
 
+{% include header %}
 
 {% block content %}
+
+
   <div id="sidebar">
     <h3>Categories</h3>
     <ul>
@@ -24,6 +27,7 @@
        {% endfor %}
     </ul>
   </div>
+
   <div id="main" class="product-list">
     <h1>{% if category %}{{ category.name }}{% else %}Items
     {% endif %}</h1>

@@ -2,7 +2,7 @@
 
 body { 
     margin:0;
-    padding:0;
+    width: 100%;
     font-family:helvetica, sans-serif; 
 }
 
@@ -145,12 +145,13 @@ ul.errorlist {
 #content {
     padding:0 100px;
     overflow:hidden;
+    
 }
 
 #sidebar {
     width:220px;
     padding:30px 20px 0 0;
-    float:left;
+    float: left;
 }
 
 #sidebar ul{

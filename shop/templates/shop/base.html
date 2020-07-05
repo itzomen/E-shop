@@ -5,16 +5,47 @@
     <meta charset="UTF-8">
     <title>{% block title %}My shop{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
   </head>
-  <body>
-    <div class="header">
-      <a href="/" class="logo">E shop</a>
-    </div>
-    <div id="subheader">
-      <div class="cart">
-        No items in cart.
+
+  <nav>
+    <div class='nav-container'>
+      <div class='fontawesome-cog' id='icon'>
+        <a href="/" class="logo">E shop</a>
       </div>
+      <ul>
+        <li>
+          <a href='#'>Item 1</a>
+        </li>
+        <li>
+          <a href='#'>Item 2</a>
+        </li>
+        <li>
+          <a href='#'>Item 3</a>
+        </li>
+        <li>
+          <a href='#'>Item 4</a>
+        </li>
+        <li>
+          <a href='#'>Item 5</a>
+        </li>
+      </ul>
     </div>
+  </nav>
+  <div id='nav-bg'></div>
+  
+  {% block header %}
+  <header>
+    <div class='nav-container'>
+      <h1>your online shop</h1>
+    </div>
+  </header>
+  {% endblock header %}
+    
+
+
+  <body>
+    
     <div id="content">
       {% block content %}
               
