@@ -34,34 +34,14 @@
   </nav>
   <div id='nav-bg'></div>
   
-  {% block header %}
-  <header>
-    <div class='nav-container'>
-      <h1>your online shop</h1>
-      <h1>{% if category %}{{ category.name }}{% else %} Items {% endif %}</h1>
-    </div>
-  </header>
-  {% endblock header %}
+{% block header %}
+ 
+{% endblock header %}
 
-  
-  {% block sidebar %}
-  <div id="sidebar">
-    <h3>Categories</h3>
-    <ul>
-       <li {% if not category %}class="selected"{% endif %}>
-       <a href="{% url 'shop:item_list' %}">All</a>
-       </li>
-       {% for c in categories %}
-       <li {% if category.slug == c.slug %}class="selected"
-       {% endif %}>
-       <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-       </li>
-       {% endfor %}
-    </ul>
-  </div>
-  {% endblock sidebar %}
-    
-    
+{% block sidebar %}
+ 
+{% endblock sidebar %}
+
 
 
   <body>
