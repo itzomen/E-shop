@@ -3,7 +3,7 @@
 Django 3 E-commerce website or online shop
 
 
-## [Preview of E-shop](itzomen.pythonanywhere.com)
+## [Preview of E-shop](https://itzomen.pythonanywhere.com)
 
 # Set up
 Steps:
