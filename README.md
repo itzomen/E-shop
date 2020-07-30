@@ -1,8 +1,7 @@
 # E-shop
 Django 3 E-commerce website or online shop
 
-# Preview
-itzomen.pythonanywhere.com
+# itzomen.pythonanywhere.com
 
 # Set up
 Steps:
