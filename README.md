@@ -1,7 +1,8 @@
-# E-shop
+Alt-H1 E-shop
 Django 3 E-commerce website or online shop
 
-# itzomen.pythonanywhere.com
+
+[Preview](https://www.itzomen.pythonanywhere.com)
 
 # Set up
 Steps:
