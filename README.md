@@ -16,5 +16,5 @@ Steps:
 python manage.py runserver
 
 ### Create superuser
-#### Python manage.py createsuper
+#### python manage.py createsuper
 
