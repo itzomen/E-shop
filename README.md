@@ -9,12 +9,14 @@ Django 3 E-commerce website or online shop
 Steps:
 
 1. Clone/pull/download this repository
-2. Create a virtualenv with `virtualenv env` and install dependencies with `pip install -r requirements.txt`
-3. Configure your .env variable
-
-# Runserver
-python manage.py runserver
+2. Create a virtualenv with `python -m venv env`
+3. Activate virtual environment `source env/bin/activate`
+4. Install dependencies with `pip install -r requirements.txt`
 
 ### Create superuser
-#### python manage.py createsuper
+`python manage.py createsuper`
+
+### Finally runserver
+`python manage.py runserver`
+
 
