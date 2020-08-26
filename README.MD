@@ -1,9 +1,7 @@
 # E-shop
-
-Django 3 E-commerce website or online shop
 ![Shop Logo](shopart.png)
 
-## [Preview of E-shop](https://itzomen.pythonanywhere.com)
+## [Preview E-shop](https://itzomen.pythonanywhere.com)
 
 # Set up
 Steps:
