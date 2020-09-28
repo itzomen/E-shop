@@ -6,16 +6,16 @@
 <div class="small-container details">
         <div class="front-row">
             <div class="col-2">
-                <img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}">
+                <img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}" width="100%" id="mainImg">
                 <div class="imgs-row">
                     <div class="imgs-col">
-                        <img src="images/laptop-33.png" width="100%" class="smallImg">
+                        <img src="{% static 'img/owl.png' %}" width="100%" class="smallImg">
                     </div>
                     <div class="imgs-col">
-                        <img src="images/laptop.png" width="100%" class="smallImg">
+                        <img src="{% static 'img/mac-white.png' %}" width="100%" class="smallImg">
                     </div>
                     <div class="imgs-col">
-                        <img src="images/mac-white.png" width="100%" class="smallImg">
+                        <img src="{% static 'img/monitor.png' %}" width="100%" class="smallImg">
                     </div>
                 </div>
             </div>
@@ -40,17 +40,6 @@
         </div>
     </div>
 
-    <div class="product-detail">
-       <img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}">
-       <h1>{{ item.name }}</h1>
-       <h2>
-           <a href="{{ item.category.get_absolute_url }}">
-            {{ item.category }}
-           </a>
-       </h2>
-       <p class="price">${{ item.price }}</p>
-       ${{ item.description|linebreaks }}
-    </div>
 
 {% endblock content %}
     

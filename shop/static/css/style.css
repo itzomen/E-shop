@@ -336,9 +336,10 @@ select:focus{
 }
 .details .col-2{
     padding: 20px;
+    padding-left: 80px;
 }
 .details .col-2 img{
-    padding: 0;
+    padding: 35px;
 }
 .details .col-2 h4{
     font-family: 'Faster One', cursive;
