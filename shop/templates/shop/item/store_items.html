@@ -1,0 +1,133 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+            {% block storefront %}
+            <div class="front-row">
+                <div class="front-col">
+                    <img src="{% static 'img/front.png' %}">
+                </div>
+                <div class="front-col">
+                    <strong><h1>HIGH-TECH <br> FOR ALL!</h1></strong>
+                    <br>
+                    <p>Your electronic store</p>
+                    <br>
+                    <a href="{% url 'shop:item_list' %}" class="button">Explore &#10140;</a>
+                </div>
+            </div>
+            {% endblock storefront %}
+
+
+{% block categories %}
+<div class="categories">
+        <h4 {% if not category %}class="selected"{% endif %}>
+            <a href="{% url 'shop:item_list' %}">All</a>
+        </h4>
+        {% for c in categories %}
+        <h4 {% if category.slug == c.slug %}class="selected" {% endif %}>
+            <a href="{% url 'shop:item_list' %}">{{ c.name }}</a>
+        </h4>
+        {% endfor %}
+
+</div>
+{% endblock categories %}
+
+
+
+{% block content %}
+
+<div class="small-container">
+        <h2 class="title">{% if category %}{{ category.name }}{% else %} Items {% endif %}</h2>
+        <div class="front-row">
+            {% for item in items %}
+            <div class="col-3">
+                <a href="{{ item.get_absolute_url }}">
+                <img src=""{% if item.image %}{{ item.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                </a>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <h4><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></h4>
+                <p>${{ item.price }}</p><strike>$2555</strike>
+            </div>
+            {% endfor %}
+            <div class="next-page">
+               <i class="far fa-arrow-alt-circle-left"></i>
+               <span>1</span>
+               <span>2</span>
+               <span>3</span>
+               <i class="far fa-arrow-alt-circle-right"></i>
+            </div>
+        </div>
+</div>
+
+<div class="offer">
+        <div class="small-container">
+            <div class="front-row">
+                <div class="col-2">
+                    <img src="{% static 'img/mac-white.png' %}" class="offer-img">
+                </div>
+                <div class="col-2">
+                    <p>Only Available at Tatior</p>
+                    <h1>Macbook 2020</h1>
+                    <h5>Extra slim, powerful and reliable. Best perfomances, best deal</h5>
+                    <br>
+                    <a href="" class="button">Acheter &#10140;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- review section -->
+    <div class="review">
+        <div class="small-container">
+            <div class="front-row">
+                <div class="col-3">
+                    <i class="fas fa-quote-right"></i>
+                    <p>Trop cool, Tatior</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <img src="{% static 'img/owl.png' %}">
+                    <h3>Mr Henry</h3>
+                </div>
+                <div class="col-3">
+                    <i class="fas fa-quote-right"></i>
+                    <p>Tatior has the best deals and offers</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <img src="{% static 'img/owl.png' %}">
+                    <h3>Tony Park</h3>
+                </div>
+                <div class="col-3">
+                    <i class="fas fa-quote-right"></i>
+                    <p>Been using my awesome pc for years.</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <img src="{% static 'img/owl.png' %}">
+                    <h3>Stacy HEm</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %} 
+    
+    

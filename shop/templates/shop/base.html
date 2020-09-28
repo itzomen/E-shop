@@ -1,60 +1,109 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <title>{% block title %}My shop{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
-  </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Omen - E-shop{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400;600;800&family=Faster+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+</head>
+<body>
 
-  <nav>
-    <div class='nav-container'>
-      <div class='fontawesome-cog' id='icon'>
-        <a href="/" class="logo">E shop</a>
-      </div>
-      <ul>
-        <li>
-          <a href='#'>Item 1</a>
-        </li>
-        <li>
-          <a href='#'>Item 2</a>
-        </li>
-        <li>
-          <a href='#'>Item 3</a>
-        </li>
-        <li>
-          <a href='#'>Item 4</a>
-        </li>
-        <li>
-          <a href='#'>Item 5</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <div id='nav-bg'></div>
-  
-{% block header %}
+  <div class="header">
+        <div class="nav-container">
+            <div class="navbar">
+                <div class="brand">
+                    <img src="{% static 'img/logo.png' %}" width="150px">
+                </div>
+                <div class="nav">
+                    <ul id="menu-items">
+                        <li><a class="active" href="">Home</a></li>
+                        <li><a href="">Products</a></li>
+                        <li><a href="">Contact</a></li>
+                        <li><a href="">About</a></li>
+                    </ul>
+                </div>
+                <img class="cart" src="{% static 'img/cart.png' %}" width="30px" height="30px">
+                <i class="fas fa-bars" onclick="togglemenu()"></i>
+            </div>
+            {% block storefront %}
+
+            {% endblock storefront %}
+        </div>
+  </div>
+
+
+  {% block categories %}
  
-{% endblock header %}
-
-{% block sidebar %}
- 
-{% endblock sidebar %}
+  {% endblock categories %}
 
 
 
-  <body>
-    
-    <div id="content">
-      {% block content %}
+  {% block content %}
               
-      {% endblock content %}
-    </div>
-    
- 
-    <script src="{% static 'js/main.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  </body>
+  {% endblock content %}
 
+     <!-- brands -->
+    <div class="brands">
+        <div class="small-container">
+            <div class="front-row">
+                <div class="col-5">
+                    <img src="{% static 'img/windows.png' %}">
+                </div>
+                <div class="col-5">
+                    <img src="{% static 'img/apple.png' %}">
+                </div>
+                <div class="col-5">
+                    <img src="{% static 'img/devices.png' %}">
+                </div>
+                <div class="col-5">
+                    <img src="{% static 'img/monitor.png' %}">
+                </div>
+                <div class="col-5">
+                    <img src="{% static 'img/iphone.png' %}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="front-row">
+                <div class="row-1">
+                    <h3>TATIOR</h3>
+                    <p>High-Tech for All</p>
+                </div>
+                <div class="row-2">
+                    <img src="{% static 'img/logo.png' %}">
+                    <h3>Shop Now</h3>
+                </div>
+                <div class="row-3">
+                    <strong>LINKS</strong>
+                    <ul>
+                        <li>Home</li>
+                        <li>Products</li>
+                        <li>Contact</li>
+                        <li>About</li>
+                    </ul>
+                </div>
+                <div class="row-4">
+                    <strong>Follow Us</strong>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Instagram</li>
+                        <li>Youtube</li>
+                        <li>Twitter</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="copyright">Copyright - E-shop by itzomen</p>
+        </div>
+    </div>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
 </html>

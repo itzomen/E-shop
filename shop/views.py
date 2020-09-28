@@ -10,10 +10,13 @@ def item_list(request, category_slug=None):
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         items = items.filter(category=category)
-    return render(request, 'shop/item/all_items.html', 
+    return render(request, 'shop/item/store_items.html',
                  {'category': category,
                  'categories': categories,
                  'items': items})
+
+def all_items(request, category_slug=None):
+    return render(request, 'shop/item/all_items.html')
 
 def item_detail(request, id, slug):
     item = get_object_or_404(Item, id=id, slug=slug, in_stock=True)

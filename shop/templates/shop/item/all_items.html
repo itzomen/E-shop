@@ -1,51 +1,59 @@
 {% extends "shop/base.html" %}
 {% load static %}
 
-    
-{% block header %}
-  <header>
-    <div class='nav-container'>
-      <h1>your online shop</h1>
-      <h1>{% if category %}{{ category.name }}{% else %} Items {% endif %}</h1>
-    </div>
-  </header>
-{% endblock header %}
-{% block sidebar %}
-  <div id="sidebar">
-    <h3>Categories</h3>
-    <ul>
-       <li {% if not category %}class="selected"{% endif %}>
-       <a href="{% url 'shop:item_list' %}">All</a>
-       </li>
-       {% for c in categories %}
-       <li {% if category.slug == c.slug %}class="selected"
-       {% endif %}>
-       <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-       </li>
-       {% endfor %}
-    </ul>
-  </div>
-{% endblock sidebar %}
+
+
+{% block categories %}
+<div class="categories">
+        <h4 {% if not category %}class="selected"{% endif %}>
+            <a href="{% url 'shop:item_list' %}">All</a>
+        </h4>
+        {% for c in categories %}
+        <h4 {% if category.slug == c.slug %}class="selected" {% endif %}>
+            <a href="{% url 'shop:item_list' %}">{{ c.name }}</a>
+        </h4>
+        {% endfor %}
+
+</div>
+{% endblock categories %}
 
 
 
 {% block content %}
 
-  <div id="main" class="product-list">
-    <h1>{% if category %}{{ category.name }}{% else %}Items{% endif %}</h1>
-    {% for item in items %}
-      <div class="item">
-          <a href="{{ item.get_absolute_url }}">
-          <img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}">
-          </a>
-          <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
-         <br>
-         ${{ item.price }}
-      </div>
-    {% endfor %}
-  </div>
-  
- 
-{% endblock content %} 
-    
-    
+<div class="small-container">
+        <h2 class="title">{% if category %}{{ category.name }}{% else %} Items {% endif %}</h2>
+        <select>
+                <option>Default Sorting</option>
+                <option>Sort by Rating</option>
+                <option>Sort by Price</option>
+                <option>Sort by Popularity</option>
+        </select>
+        <div class="front-row">
+            {% for item in items %}
+            <div class="col-3">
+                <a href="{{ item.get_absolute_url }}">
+                <img src="images/macbook-pro.png">
+                </a>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <h4><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></h4>
+                <p>${{ item.price }}</p><strike>$2555</strike>
+            </div>
+            {% endfor %}
+            <div class="next-page">
+               <i class="far fa-arrow-alt-circle-left"></i>
+               <span>1</span>
+               <span>2</span>
+               <span>3</span>
+               <i class="far fa-arrow-alt-circle-right"></i>
+            </div>
+        </div>
+</div>
+
+{% endblock content %}
