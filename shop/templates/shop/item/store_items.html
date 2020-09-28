@@ -19,12 +19,12 @@
 
 {% block categories %}
 <div class="categories">
-        <h4 {% if not category %}class="selected"{% endif %}>
+        <h4 {% if not category %} class="selected"{% endif %}>
             <a href="{% url 'shop:item_list' %}">All</a>
         </h4>
         {% for c in categories %}
-        <h4 {% if category.slug == c.slug %}class="selected" {% endif %}>
-            <a href="{% url 'shop:item_list' %}">{{ c.name }}</a>
+        <h4 {% if category.slug == c.slug %} class="selected" {% endif %}>
+            <a href="{{ c.get_absolute_url  }}">{{ c.name }}</a>
         </h4>
         {% endfor %}
 
@@ -41,7 +41,7 @@
             {% for item in items %}
             <div class="col-3">
                 <a href="{{ item.get_absolute_url }}">
-                <img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+                <img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}">
                 </a>
                 <div class="rating">
                     <i class="fas fa-star"></i>
