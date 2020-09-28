@@ -15,8 +15,6 @@ def item_list(request, category_slug=None):
                  'categories': categories,
                  'items': items})
 
-def all_items(request, category_slug=None):
-    return render(request, 'shop/item/all_items.html')
 
 def item_detail(request, id, slug):
     item = get_object_or_404(Item, id=id, slug=slug, in_stock=True)

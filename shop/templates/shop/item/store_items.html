@@ -41,7 +41,7 @@
             {% for item in items %}
             <div class="col-3">
                 <a href="{{ item.get_absolute_url }}">
-                <img src=""{% if item.image %}{{ item.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                <img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
                 </a>
                 <div class="rating">
                     <i class="fas fa-star"></i>
