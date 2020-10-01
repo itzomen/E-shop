@@ -37,7 +37,7 @@ class Cart(object):
         # converting id to string cuz item.id is not serializable
         item_id = str(item.id)
         if item_id not in self.cart:
-            self.cart[item_id] = {'quantity': 0
+            self.cart[item_id] = {'quantity': 0,
                                   'price': str(item.price)}
         if override_quantity:
             self.cart[item_id][quantity] = quantity
@@ -45,7 +45,7 @@ class Cart(object):
             self.cart[item_id][quantity] += quantity
         self.save
     
-    def reduce_item(self, item):
+    def reduce_item(self, item, quantity):
         item_id = str(item.id)
         if override_quantity:
             self.cart[item_id][quantity] = quantity
