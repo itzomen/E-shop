@@ -27,7 +27,7 @@ class Item(models.Model):
     slug = models.SlugField(max_length = 200, db_index=True)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='gallery/%Y/%m/%d', blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=3)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     #using decimal for prices to avoid rounding issue
     in_stock = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
