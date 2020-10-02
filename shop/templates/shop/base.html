@@ -26,8 +26,11 @@
                         <li><a href="">About</a></li>
                     </ul>
                 </div>
-                <img class="cart" src="{% static 'img/cart.png' %}" width="30px" height="30px">
-                <i class="fas fa-bars" onclick="togglemenu()"></i>
+                <a href="cart_detail.html">
+                    <i class="fas fa-shopping-cart">1</i>
+                </a>
+            </div>
+            <i class="fas fa-bars" onclick="togglemenu()"></i>
             </div>
             {% block storefront %}
 

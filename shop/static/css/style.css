@@ -8,6 +8,8 @@ body{
     background-color: #fdfbfb;
 }
 
+
+
 /* navbar */
 .header{
     background: radial-gradient(#fff, #adc8ee);
@@ -35,6 +37,9 @@ body{
     display: inline-block;
     margin-right: 40px;
     font-weight: 700;
+}
+.fas.fa-shopping-cart{
+    cursor: pointer;
 }
 .active{
     text-align: center;
@@ -65,6 +70,8 @@ p{
     color: rgb(0, 5, 5);
 
 }
+
+
 
 
 /* store front */
@@ -104,6 +111,9 @@ p{
     background: #343434;
 }
 
+
+
+
 /* categories */
 .categories{
     margin: 20px;
@@ -129,6 +139,9 @@ p{
 .col-4 h4{
     text-align: center;
 }
+
+
+
 
 
 /* products */
@@ -173,6 +186,10 @@ p{
     color: #fbe519;
 }
 
+
+
+
+
 /* special offers */
 .offer{
     background: radial-gradient(#fff, #adc8ee);
@@ -194,6 +211,10 @@ p{
 .col-2 a{
     margin-left: 0;
 }
+
+
+
+
 
 /* review section */
 .review{
@@ -229,6 +250,10 @@ p{
     font-weight: 600;
     color: #555;
 }
+
+
+
+
 
 /* brands */
 
@@ -287,6 +312,10 @@ ul{
     margin-bottom: 1px;
 }
 
+
+
+
+
 /* all products styling */
 
 .row-rate{
@@ -327,6 +356,9 @@ select:focus{
     background: #4b81c7;
     color: azure;
 }
+
+
+
 
 
 /* product details styling */
@@ -379,12 +411,76 @@ input:focus{
 
 
 
+
+
+/* cart details styling */
+.Cart{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.Cart table, th, td{
+    flex-basis: 95%;
+    border: 1px solid #4b81c7;
+}
+.Cart h2{
+    text-align: center;
+    margin-bottom: 15px;
+}
+table{
+    border-spacing: 4px;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+tr:nth-of-type(even){
+    background:#eee;
+}
+th, td{
+    padding: 5px;
+}
+td{
+    text-align: center;
+}
+td img{
+    width: 100px;
+    cursor: pointer;
+    filter: grayscale(0);
+}
+td img:hover{
+    filter: grayscale(90%);
+}
+.far.fa-trash-alt{
+    cursor: pointer;
+    text-transform: lowercase;
+}
+.fas.fa-sort-up, .fas.fa-sort-down{
+    cursor: pointer;
+    width: 6px;
+    color: #fd3511;
+}
+.total{
+    flex-basis: 25%;
+    margin-left: 42px;
+    margin-top: 25px;
+    margin-bottom: 3px;
+    transition: transform 0.5s;
+}
+.total:hover{
+    transform: translateY(8px);
+}
+
+
+
+
+
+
 /* media query for small screens */
 .fas.fa-bars{
     width: 50px;
     margin-left: 20px;
     display: none;
 }
+
+
 
 @media only screen and (max-width:800px){
     .nav ul{
@@ -415,13 +511,14 @@ input:focus{
     }
 }
 
+
+
 /* media query for small screens < 700px */
 @media only screen and (max-width:700px){
     /* front row section */
     .front-row{
         text-align: center;
     }
-    
     .front-col img{
         max-width: 92%;
         padding: 50px 0;
@@ -446,7 +543,52 @@ input:focus{
         text-align: center;
         margin-left: 0;
     }
+
+    /* making table responsive */
+
+    /* 1. force table to change style */
+    table, thead, tbody, th, td, tr{
+        display: block;
+    }
+
+    /* 2. Hide table headers but not display none for accessibility */
+    thead tr{
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    /* make table behave like row */
+    td{
+        border: none;
+        border-bottom: 1px solid#eee;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td:before{
+        /* Not like a table header */
+        position: absolute;
+        /* top and left values mimic padding */
+        top: 6px;
+        left: 6px;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    /* table labels */
+    td:nth-of-type(1):before{content:"Product";}
+    td:nth-of-type(2):before{content:"Image";}
+    td:nth-of-type(3):before{content:"Quantity";}
+    td:nth-of-type(4):before{content:"Unit Price";}
+    td:nth-of-type(5):before{content:"Total";}
 }
+
+
 @media only screen and (max-width:600px){
     /* front row section */
     .button{
@@ -456,6 +598,8 @@ input:focus{
         padding: 0 15px;
     }
 }
+
+
 @media only screen and (max-width:500px){
     /* front row section */
     .cart{
@@ -487,4 +631,3 @@ input:focus{
         margin-left: 0;
     }
 }
-
