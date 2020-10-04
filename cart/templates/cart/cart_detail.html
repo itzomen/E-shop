@@ -19,10 +19,10 @@
             </thead>
             <tbody>
                 {% for item in cart  %}
-                {% with val=item.val as  %}
+                {% with cart_item=item.cart_item as  %}
                 <tr>    
                     <td>
-                        <h4>{{ val.name }}</h4>
+                        <h4>{{ cart_item.name }}</h4>
                     </td>
                     <td>
                         <a href="{{ item.get_absolute_url }}">
@@ -37,7 +37,7 @@
                     <td>
                         <strong>${{ item.price }}</strong>
                         <br>
-                        <form action="{% url 'cart:remove' val.id %}" method="POST">
+                        <form action="{% url 'cart:remove' cart_item.id %}" method="POST">
                             <i class="far fa-trash-alt"></i>
                             <input type="submit" value="remove">
                             {% csrf_token %}
@@ -54,7 +54,7 @@
     </div>
     <div class="front-row">
         <div class="total"><h2>TOTAL</h2></div>
-        <div class="total"><h2>${{ cart.get_total_price }}</h2></div>
+        <div class="total"><h2>${{ cart.overall_price }}</h2></div>
         <div class="total">
             <a href="" class="button">Checkout</a>
         </div>
