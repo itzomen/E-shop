@@ -34,6 +34,11 @@
                     <option>16Gb</option>
                     <option>32Gb</option>
                 </select>
+                <form action="{% url 'cart:add_cart' item.id %}" method="POST">
+                    {{ cart_item_form }}
+                    {% csrf_token %}
+                    <input type="submit" value="Add to cart">
+                </form>
                 <input type="number" value="1">
                 <a href="" class="button"> Add to Cart </a>
             </div>

@@ -32,7 +32,7 @@ class Cart(object):
     def overall_price(self):
         return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
 
-    def add_item(self, item, quantity=1, override_quantity=False):
+    def add_item(self, item, quantity, override_quantity=False):
         # add to cart or update
         # converting id to string cuz item.id is not serializable
         item_id = str(item.id)
@@ -40,9 +40,9 @@ class Cart(object):
             self.cart[item_id] = {'quantity': 0,
                                   'price': str(item.price)}
         if override_quantity:
-            self.cart[item_id][quantity] = quantity
+            self.cart[item_id]['quantity'] = quantity
         else:
-            self.cart[item_id][quantity] += quantity
+            self.cart[item_id]['quantity'] += quantity
         self.save
     
     def reduce_item(self, item, quantity):

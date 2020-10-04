@@ -1,4 +1,4 @@
-{% extends 'shop/base - no header.htnl' %}
+{% extends 'shop/base - no header.html' %}
 {% load static %}
 
 
@@ -19,7 +19,7 @@
             </thead>
             <tbody>
                 {% for item in cart  %}
-                {% with cart_item=item.cart_item as  %}
+                {% with cart_item=item.cart_item %}
                 <tr>    
                     <td>
                         <h4>{{ cart_item.name }}</h4>
@@ -37,7 +37,7 @@
                     <td>
                         <strong>${{ item.price }}</strong>
                         <br>
-                        <form action="{% url 'cart:remove' cart_item.id %}" method="POST">
+                        <form action="{% url 'cart:remove_cart' cart_item.id %}" method="POST">
                             <i class="far fa-trash-alt"></i>
                             <input type="submit" value="remove">
                             {% csrf_token %}

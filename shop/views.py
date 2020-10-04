@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Item
+from cart.forms import AddItemForm
 
 # Create your views here.
 
@@ -18,7 +19,10 @@ def item_list(request, category_slug=None):
 
 def item_detail(request, id, slug):
     item = get_object_or_404(Item, id=id, slug=slug, in_stock=True)
-    return render(request, 'shop/item/item.html', {'item': item})
+    cart_item_form = AddItemForm()
+    return render(request, 'shop/item/item.html', 
+                            {'item': item,
+                            'cart_item_form': cart_item_form})
     # the slug parameter is added to make seo-friendly urls
     
     
