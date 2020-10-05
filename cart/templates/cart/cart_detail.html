@@ -25,8 +25,8 @@
                         <h4>{{ cart_item.name }}</h4>
                     </td>
                     <td>
-                        <a href="{{ item.get_absolute_url }}">
-                            <img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}">
+                        <a href="{{ cart_item.get_absolute_url }}">
+                            <img src="{% if cart_item.image %}{{ cart_item.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}">
                         </a>
                     </td>
                     <td>
@@ -59,6 +59,7 @@
             <a href="" class="button">Checkout</a>
         </div>
     </div>
+    <center><a href="{% url 'shop:item_list' %}">Continue Shopping</a></center>
 </div>
     
 {% endblock content %}
