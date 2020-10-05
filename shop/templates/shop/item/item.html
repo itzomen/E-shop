@@ -21,26 +21,17 @@
             </div>
             <div class="col-2">
                 <p>
-                    <a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a>
+                    <a href="{{ item.category.get_absolute_url }}">Category: {{ item.category }}</a>
                 </p>
                 <h1>{{ item.name }}</h1>
                 <h4>${{ item.price }}</h4><strike>$2555</strike>
                 <h3>Characteristics</h3>
                 <p>${{ item.description|linebreaks }}</p>
-                <select>
-                    <option>Choose Ram</option>
-                    <option>4Gb</option>
-                    <option>8Gb</option>
-                    <option>16Gb</option>
-                    <option>32Gb</option>
-                </select>
                 <form action="{% url 'cart:add_cart' item.id %}" method="POST">
                     {{ cart_item_form }}
                     {% csrf_token %}
-                    <input type="submit" value="Add to cart">
+                    <input type="submit" value="  Add to cart  ">
                 </form>
-                <input type="number" value="1">
-                <a href="" class="button"> Add to Cart </a>
             </div>
         </div>
     </div>
