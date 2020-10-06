@@ -27,3 +27,10 @@ class CartItem(models.Model):
 
     def get_overall_price(self):
         return self.get_total_price()
+
+class Cart(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    items = models.ManyToManyField(CartItem)
+    added_date = models.DateTimeField(auto_now_add=True)
+    ordered = models.BooleanField(default=False)

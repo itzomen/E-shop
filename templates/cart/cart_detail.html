@@ -21,11 +21,11 @@
                 {% for cart_item in object.items.all %}
                 <tr>    
                     <td>
-                        <h4>{{ cart_item.name }}</h4>
+                        <h4>{{ cart_item.item.name }}</h4>
                     </td>
                     <td>
-                        <a href="{{ cart_item.get_absolute_url }}">
-                            <img src="{% if cart_item.image %}{{ cart_item.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}">
+                        <a href="{{ item.get_absolute_url }}">
+                            <img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}">
                         </a>
                     </td>
                     <td>
@@ -34,7 +34,7 @@
                         <i class="fas fa-sort-down"></i>
                     </td>
                     <td>
-                        <strong>${{ cart_item.price }}</strong>
+                        <strong>${{ item.price }}</strong>
                         <br>
                         <a href=""><i class="far fa-trash-alt">Remove</i></a>
                     </td>
