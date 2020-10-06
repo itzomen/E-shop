@@ -27,11 +27,6 @@
                 <h4>${{ item.price }}</h4><strike>$2555</strike>
                 <h3>Characteristics</h3>
                 <p>${{ item.description|linebreaks }}</p>
-                <form action="{% url 'cart:add_cart' item.id %}" method="POST">
-                    {{ cart_item_form }}
-                    {% csrf_token %}
-                    <input type="submit" value="  Add to cart  ">
-                </form>
             </div>
         </div>
     </div>
