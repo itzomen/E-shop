@@ -32,6 +32,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #allauth 
+    'allauth', 
+    'allauth.account', 
+    'allauth.socialaccount', 
+    'allauth.socialaccount.providers.google', 
+    'allauth.socialaccount.providers.facebook', 
+    'django.contrib.auth', 
+    'django.contrib.sites', 
+    'django.contrib.contenttypes', 
+    'django.contrib.sessions', 
+    'django.contrib.messages', 
+    'django.contrib.staticfiles', 
+    #end allauth
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -65,10 +78,21 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #allauth 
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
+#for allauth
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username 
+    'django.contrib.auth.backends.ModelBackend', 
+    # Needed to login by email
+    'allauth.account.auth_backends.AuthenticationBackend', 
+)
+
 
 WSGI_APPLICATION = 'e_shop.wsgi.application'
 
@@ -124,6 +148,3 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
-#setting session id
-CART_SESSION_ID = 'cart'
