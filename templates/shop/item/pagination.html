@@ -6,21 +6,13 @@
 
             {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}"><i class="far fa-arrow-alt-circle-left"></i></a>
-           
-            <span>
-                <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
-            </span>
+            <a href="?page={{ page_obj.previous_page_number }}"><span>{{ page_obj.previous_page_number }}</span></a>
             {% endif %}
-
-            <span>
-                <a style="color: crimson; font-weight: 800;" href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
-            </span>
-
+            
+            <a style="color: crimson; font-weight: 800;" href="?page={{ page_obj.number }}"><span>{{ page_obj.number }}</span></a>
+            
             {% if page_obj.has_next %}
-            <span>
-                <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
-            </span>
-
+            <a href="?page={{ page_obj.next_page_number }}"><span>{{ page_obj.next_page_number }}</span></a>
             <a href="?page={{ page_obj.next_page_number }}"><i class="far fa-arrow-alt-circle-right"></i></a>
             {% endif %}
 
