@@ -37,13 +37,8 @@ INSTALLED_APPS = [
     'allauth.account', 
     'allauth.socialaccount', 
     'allauth.socialaccount.providers.google', 
-    'allauth.socialaccount.providers.facebook', 
-    'django.contrib.auth', 
-    'django.contrib.sites', 
-    'django.contrib.contenttypes', 
-    'django.contrib.sessions', 
-    'django.contrib.messages', 
-    'django.contrib.staticfiles', 
+    'allauth.socialaccount.providers.facebook',
+    'django.contrib.sites',
     #end allauth
     'django.contrib.admin',
     'django.contrib.auth',
@@ -78,8 +73,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                #allauth 
-                'django.template.context_processors.request',
             ],
         },
     },
@@ -92,6 +85,8 @@ AUTHENTICATION_BACKENDS = (
     # Needed to login by email
     'allauth.account.auth_backends.AuthenticationBackend', 
 )
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
 
 
 WSGI_APPLICATION = 'e_shop.wsgi.application'
