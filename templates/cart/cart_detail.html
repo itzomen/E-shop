@@ -29,9 +29,13 @@
                         </a>
                     </td>
                     <td>
-                        <i class="fas fa-sort-up"></i>
+                        <a href="{% url 'cart:add_to_cart' cart_item.item.slug %}">
+                            <i class="fas fa-sort-up"></i>
+                        </a>
                         <h4>{{ cart_item.quantity }}</h4>
-                        <i class="fas fa-sort-down"></i>
+                        <a href="{% url 'cart:reduce_from_cart' cart_item.item.slug %}">
+                            <i class="fas fa-sort-down"></i>
+                        </a>
                     </td>
                     <td>
                         <strong>${{ cart_item.item.price }}</strong>
