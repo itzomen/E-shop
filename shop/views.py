@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView, View
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import ListView
 from .models import Category, Item
 
 # Create your views here.
@@ -7,10 +8,21 @@ from .models import Category, Item
 def item_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
-    items = Item.objects.filter(in_stock=True)
+    items_list = Item.objects.filter(in_stock=True)
+    # apply function based pagination
+    paginator = Paginator(items_list, 2)
+    page = request.GET.get('page')
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        items = paginator.page(1)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
+    # filtering by category
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
-        items = items.filter(category=category)
+        items = items_list.filter(category=category)
+        
     return render(request, 'shop/item/store_items.html',
                  {'category': category,
                  'categories': categories,
@@ -18,7 +30,7 @@ def item_list(request, category_slug=None):
 
 class AllView(ListView):
     model = Item
-    paginate_by = 2
+    paginate_by = 3
     template_name = "shop/item/all_items.html"
 
 def item_detail(request, id, slug):

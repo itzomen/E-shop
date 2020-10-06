@@ -5,15 +5,17 @@
 
 {% block categories %}
 <div class="categories">
-        <h4 {% if not category %}class="selected"{% endif %}>
-            <a href="{% url 'shop:item_list' %}">All</a>
+    <div class="front-row">
+        <h4 {% if not category %} class="selected"{% endif %}>
+            <a href="{% url 'shop:item_list' %}">Home</a>
         </h4>
-        {% for c in categories %}
-        <h4 {% if category.slug == c.slug %}class="selected" {% endif %}>
-            <a href="{% url 'shop:item_list' %}">{{ c.name }}</a>
-        </h4>
-        {% endfor %}
-
+        <select>
+            <option>All Products</option>
+            {% for item in object_list %}
+            <option>{{ item.category.name  }}</option>
+            {% endfor %}
+        </select>
+    </div>
 </div>
 {% endblock categories %}
 
@@ -22,13 +24,6 @@
 {% block content %}
 
 <div class="small-container">
-        <h2 class="title">{% if category %}{{ category.name }}{% else %} Items {% endif %}</h2>
-        <select>
-                <option>Default Sorting</option>
-                <option>Sort by Rating</option>
-                <option>Sort by Price</option>
-                <option>Sort by Popularity</option>
-        </select>
         <div class="front-row">
             {% for item in object_list %}
             <div class="col-3">
