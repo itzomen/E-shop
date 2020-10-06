@@ -18,13 +18,13 @@ class Cart(object):
         items = Item.objects.filter(id__in=item_ids)
 
         cart = self.cart.copy()
-        for cart_item in items:
-            cart[str(cart_item.id)]['cart_item'] = cart_item
+        for item in items:
+            cart[str(item.id)]['item'] = item
 
-        for item in cart.values():
-            item['price'] = Decimal(item['price'])
-            item['total_price'] = item['price'] * item['quantity']
-            yield item
+        for cart_item in cart.values():
+            cart_item['price'] = Decimal(cart_item['price'])
+            cart_item['total_price'] = cart_item['price'] * cart_item['quantity']
+            yield cart_item
 
     def __len__(self):
         return sum(item['quantity'] for item in self.cart.values())
@@ -32,7 +32,7 @@ class Cart(object):
     def overall_price(self):
         return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
 
-    def add_item(self, item, quantity, override_quantity=False):
+    def add_item(self, item, quantity=1, override_quantity=False):
         # add to cart or update
         # converting id to string cuz item.id is not serializable
         item_id = str(item.id)
@@ -61,11 +61,9 @@ class Cart(object):
         item_id = str(item.id)
         if item_id in self.cart:
             del self.cart[item_id] 
-        self.save 
+            self.save 
     
     def clear(self):
         # remove cart from session
         del self.session[settings.CART_SESSION_ID]
         self.save()
-
-    

@@ -3,6 +3,7 @@ from django.views.decorators.http import require_POST
 from shop.models import Item
 from .cart import Cart
 from .forms import AddItemForm
+from django.contrib import messages
 
 @require_POST
 def add_cart(request, item_id):
@@ -16,6 +17,7 @@ def add_cart(request, item_id):
         cd = form.cleaned_data
         cart.add_item(item=item, quantity=cd['quantity'], 
                        override_quantity=cd['override'])
+        messages.info(request, f"{item.name} item quantity was added.")
     return redirect('cart:cart_detail')
 
 @require_POST
