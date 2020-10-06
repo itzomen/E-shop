@@ -35,9 +35,7 @@ INSTALLED_APPS = [
     #allauth 
     'allauth', 
     'allauth.account', 
-    'allauth.socialaccount', 
-    'allauth.socialaccount.providers.google', 
-    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount',
     'django.contrib.sites',
     #end allauth
     'django.contrib.admin',
@@ -142,8 +140,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root/')
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'all_static')]
 
