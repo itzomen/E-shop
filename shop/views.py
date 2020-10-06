@@ -10,7 +10,7 @@ def item_list(request, category_slug=None):
     categories = Category.objects.all()
     items_list = Item.objects.filter(in_stock=True)
     # apply function based pagination
-    paginator = Paginator(items_list, 4)
+    paginator = Paginator(items_list, 6)
     page = request.GET.get('page')
     try:
         items = paginator.page(page)
@@ -30,7 +30,7 @@ def item_list(request, category_slug=None):
 
 class AllView(ListView):
     model = Item
-    paginate_by = 4
+    paginate_by = 6
     template_name = "shop/item/all_items.html"
 
 def item_detail(request, id, slug):
