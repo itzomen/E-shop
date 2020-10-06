@@ -23,13 +23,13 @@
                 <div class="nav">
                     <ul id="menu-items">
                         <li><a class="active" href="{% url 'shop:item_list' %}">Home</a></li>
-                        <li><a href="">Products</a></li>
+                        <li><a href="{% url 'shop:all_items' %}">Products</a></li>
                         <li><a href="">Contact</a></li>
                         <li><a href="">About</a></li>
                     </ul>
                 </div>
                 <a href="cart_detail.html">
-                    <i class="fas fa-shopping-cart">1</i>
+                    <i class="fas fa-shopping-cart">{{ cart_item.quantity }}</i>
                 </a>
             </div>
             <i class="fas fa-bars" onclick="togglemenu()"></i>
@@ -50,7 +50,7 @@
   {% block content %}
               
   {% endblock content %}
-
+    
      <!-- brands -->
     <div class="brands">
         <div class="small-container">

@@ -88,7 +88,7 @@ def reduce_from_cart(request, slug):
                 cart_item.quantity -= 1
                 cart_item.save()
             else:
-                cart.items.remove(order_item)
+                cart.items.remove(cart_item)
             messages.info(request, f"{item.name} quantity was reduced from your cart.")
             return redirect('cart:cart-summary')
         else:

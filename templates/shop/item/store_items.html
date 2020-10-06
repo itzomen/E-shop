@@ -57,15 +57,10 @@
                 <p>${{ item.price }}</p><strike>$2555</strike>
             </div>
             {% endfor %}
-            <div class="next-page">
-               <i class="far fa-arrow-alt-circle-left"></i>
-               <span>1</span>
-               <span>2</span>
-               <span>3</span>
-               <i class="far fa-arrow-alt-circle-right"></i>
-            </div>
         </div>
 </div>
+
+{% include 'shop/item/pagination.html' %}
 
 <div class="offer">
         <div class="small-container">

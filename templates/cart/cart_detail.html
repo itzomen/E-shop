@@ -40,7 +40,7 @@
                     <td>
                         <strong>${{ cart_item.item.price }}</strong>
                         <br>
-                        <a href=""><i class="far fa-trash-alt">Remove</i></a>
+                        <a href="{% url 'cart:remove_from_cart' cart_item.item.slug %}"><i class="far fa-trash-alt">Remove</i></a>
                     </td>
                     <td>
                         <strong>${{ cart_item.get_total_price }}</strong>

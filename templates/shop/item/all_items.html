@@ -30,10 +30,10 @@
                 <option>Sort by Popularity</option>
         </select>
         <div class="front-row">
-            {% for item in items %}
+            {% for item in object_list %}
             <div class="col-3">
                 <a href="{{ item.get_absolute_url }}">
-                <img src="images/macbook-pro.png">
+                <img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}">
                 </a>
                 <div class="rating">
                     <i class="fas fa-star"></i>
@@ -46,14 +46,9 @@
                 <p>${{ item.price }}</p><strike>$2555</strike>
             </div>
             {% endfor %}
-            <div class="next-page">
-               <i class="far fa-arrow-alt-circle-left"></i>
-               <span>1</span>
-               <span>2</span>
-               <span>3</span>
-               <i class="far fa-arrow-alt-circle-right"></i>
-            </div>
         </div>
 </div>
+
+{% include 'shop/item/pagination.html' %}
 
 {% endblock content %}
