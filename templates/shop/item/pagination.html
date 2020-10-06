@@ -1,12 +1,30 @@
 <!-- pagination -->
 <div class="front-row">
     <center>
+        {% if is_paginated %}
         <div class="next-page">
-            <i class="far fa-arrow-alt-circle-left"></i>
-            <span>1</span>
-            <span>2</span>
-            <span>3</span>
-            <i class="far fa-arrow-alt-circle-right"></i>
+
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}"><i class="far fa-arrow-alt-circle-left"></i></a>
+           
+            <span>
+                <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+            </span>
+            {% endif %}
+
+            <span>
+                <a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+            </span>
+
+            {% if page_obj.has_next %}
+            <span>
+                <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+            </span>
+
+            <a href="?page={{ page_obj.next_page_number }}"><i class="far fa-arrow-alt-circle-right"></i></a>
+            {% endif %}
+
         </div>
+        {% endif %}
     </center>
 </div>
