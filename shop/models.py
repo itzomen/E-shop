@@ -41,11 +41,20 @@ class Item(models.Model):
 
     def get_absolute_url(self):
         return reverse('shop:item_detail', 
-                       args=[self. id, self.slug])
+                       args=[self.id, self.slug])
 
     def __str__(self):
         return self.name
-    
+
+    def get_add_to_cart_url(self):
+        return reverse("cart:add_to_cart", kwargs={
+            'slug': self.slug
+        })
+
+    def get_remove_from_cart_url(self):
+        return reverse("cart:remove_from_cart", kwargs={
+            'slug': self.slug
+        })
     
     
     
