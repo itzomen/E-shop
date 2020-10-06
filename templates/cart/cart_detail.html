@@ -18,40 +18,37 @@
                 </tr>
             </thead>
             <tbody>
-              
+                {% for cart_item in object.items.all %}
                 <tr>    
                     <td>
-                        <h4></h4>
+                        <h4>{{ cart_item.name }}</h4>
                     </td>
                     <td>
-                        <a href="{{ item.get_absolute_url }}">
-                            <img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}">
+                        <a href="{{ cart_item.get_absolute_url }}">
+                            <img src="{% if cart_item.image %}{{ cart_item.image.url }}{% else %}{% static 'img/empty_img.png' %}{% endif %}">
                         </a>
                     </td>
                     <td>
                         <i class="fas fa-sort-up"></i>
-                        <h4></h4>
+                        <h4>{{ cart_item.quantity }}</h4>
                         <i class="fas fa-sort-down"></i>
                     </td>
                     <td>
-                        <strong>$</strong>
+                        <strong>${{ cart_item.price }}</strong>
                         <br>
-                        <form action="" method="POST">
-                            <i class="far fa-trash-alt"></i>
-                            <input type="submit" value="remove">
-                            {% csrf_token %}
-                        </form>
+                        <a href=""><i class="far fa-trash-alt">Remove</i></a>
                     </td>
                     <td>
-                        <strong>$</strong>
+                        <strong>${{ cartitem.get_total_price }}</strong>
                     </td>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
     <div class="front-row">
         <div class="total"><h2>TOTAL</h2></div>
-        <div class="total"><h2>$</h2></div>
+        <div class="total"><h2>${{ cartitem.get_add_to_cart_url }}</h2></div>
         <div class="total">
             <a href="" class="button">Checkout</a>
         </div>
