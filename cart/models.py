@@ -25,7 +25,7 @@ class CartItem(models.Model):
     def get_total_price(self):
         return self.item.price * self.quantity
 
-    def get_overall_price(self):
+    def item_final_price(self):
         return self.get_total_price()
 
 class Cart(models.Model):
@@ -34,3 +34,12 @@ class Cart(models.Model):
     items = models.ManyToManyField(CartItem)
     added_date = models.DateTimeField(auto_now_add=True)
     ordered = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
+
+    def get_total(self):
+        total = 0
+        for cart_item in self.items.all():
+            total += cart_item.item_final_price()
+        return total
