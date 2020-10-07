@@ -14,6 +14,9 @@ Steps:
 ### Create superuser
 `python manage.py createsuper`
 
+### Collect Static
+`python manage.py collectstatic`
+
 ### Finally runserver
 `python manage.py runserver`
 
