@@ -38,15 +38,21 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django.contrib.sites',
     #end allauth
+
+    'crispy_forms',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
 ]
+
+CRISPY_TEMPLATE_PACK ='uni_form'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
