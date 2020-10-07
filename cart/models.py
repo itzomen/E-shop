@@ -43,3 +43,9 @@ class Cart(models.Model):
         for cart_item in self.items.all():
             total += cart_item.item_final_price()
         return total
+
+    def count(self):
+        count = 0
+        for cart_item in self.items.all():
+            count += 1
+        return count

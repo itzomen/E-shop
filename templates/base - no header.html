@@ -26,6 +26,13 @@
                         <li><a href="{% url 'shop:all_items' %}">Products</a></li>
                         <li><a href="">Contact</a></li>
                         <li><a href="">About</a></li>
+
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'account_logout' %}">Logout</a></li>    
+                        {% else %}
+                        <li><a href="{% url 'account_login' %}">Login</a></li>
+                        {% endif %}
+                        
                     </ul>
                 </div>
                 <a href="{% url 'cart:cart-summary' %}">

@@ -5,7 +5,10 @@
 {% block content %}
 
 <div class="Cart">
-    <h2>Your Shopping Cart</h2>
+    <h2 style="text-transform: capitalize;">{{ user.username }}  Shopping Cart has 
+        {% if object.get_total %}
+        {{ object.count }}
+        {% endif %} Item(s)</h2>
     <div class="front-row">
         <table>
             <thead>
