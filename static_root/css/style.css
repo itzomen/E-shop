@@ -9,7 +9,6 @@ body{
 }
 
 
-
 /* navbar */
 .header{
     background: radial-gradient(#fff, #adc8ee);
@@ -64,6 +63,7 @@ a{
     text-decoration: none;
     color: rgb(14, 117, 117);
     text-transform: uppercase;
+    padding: 8px;
 }
 p{
     text-decoration: none;
@@ -118,6 +118,7 @@ p{
 .categories{
     margin: 20px;
 }
+
 .small-container{
     max-width: 1080;
     margin: auto;
@@ -398,7 +399,7 @@ input[type=submit]{
     transition: 0.5s;
 }
 input:hover{
-    background: #343434;
+    background: #beedf5;
 }
 
 .imgs-row{
@@ -471,6 +472,43 @@ td img:hover{
 }
 .total:hover{
     transform: translateY(8px);
+}
+
+
+/* Account section */
+.account{
+    margin: auto;
+    border: 15px solid rgb(195, 246, 246);
+    background-color: rgb(179, 245, 245);
+    padding: 10px;
+    height: 50%;
+    width: 60%;
+    border-radius: 700px;
+}
+.account h1, .account p{
+    text-align: center;
+    margin-left: 0;
+}
+form {
+    margin: 0 auto;
+    padding-top: 20px;
+    padding: 20px;
+    width: 250px;
+}
+input{
+    font-size: 20px;
+    margin: 8px 8px;
+    margin-left: 0;
+    cursor: pointer;
+}
+label{
+    font-size: 20px;
+}
+button{
+    justify-content: center;
+    display: flex;
+    margin: auto;
+    width: 50%;
 }
 
 
@@ -602,6 +640,32 @@ td img:hover{
         margin-bottom: 50px;
         padding: 0 15px;
     }
+        /* Account section */
+        .account{
+            margin: auto;
+            border: 15px solid rgb(195, 246, 246);
+            background-color: rgb(179, 245, 245);
+            padding: 10px;
+            height: 100%;
+            width: 100%;
+            border-radius: 700px;
+        }
+        .account h1, .account p{
+            text-align: center;
+            margin-left: 0;
+        }
+        form {
+            margin: 0 auto;
+            padding-top: 20px;
+            padding: 20px;
+            width: 250px;
+        }
+        input{
+            font-size: 15px;
+            margin: 8px 8px;
+            margin-left: 0;
+            cursor: pointer;
+        }
 }
 
 

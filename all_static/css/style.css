@@ -63,6 +63,7 @@ a{
     text-decoration: none;
     color: rgb(14, 117, 117);
     text-transform: uppercase;
+    padding: 8px;
 }
 p{
     text-decoration: none;
@@ -117,6 +118,7 @@ p{
 .categories{
     margin: 20px;
 }
+
 .small-container{
     max-width: 1080;
     margin: auto;
