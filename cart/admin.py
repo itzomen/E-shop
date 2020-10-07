@@ -20,4 +20,8 @@ class CartAdmin(admin.ModelAdmin):
         'user'
     ]
 
-admin.site.register(CartItem)
+@admin.register(CartItem)
+class CartItemAdmin(admin.ModelAdmin):
+    '''Admin View for CartItem'''
+
+    list_display = ['item', 'user']
