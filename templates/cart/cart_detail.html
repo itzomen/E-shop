@@ -6,9 +6,11 @@
 
 <div class="Cart">
     <h2 style="text-transform: capitalize;">{{ user.username }}  Shopping Cart has 
-        {% if object.get_total %}
-        {{ object.count }}
-        {% endif %} Item(s)</h2>
+        {% if cart.get_total %}
+        {{ cart.count }} Item(s)
+        {% else %}
+         No Item
+        {% endif %} </h2>
     <div class="front-row">
         <table>
             <thead>
@@ -21,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for cart_item in object.items.all %}
+                {% for cart_item in cart.items.all %}
                 <tr>    
                     <td>
                         <h4>{{ cart_item.item.name }}</h4>

@@ -107,7 +107,7 @@ class CartSummaryView(LoginRequiredMixin, View):
         try:
             cart = Cart.objects.get(user=self.request.user, ordered=False)
             context = {
-                'object': cart
+                'cart': cart
             }
             return render(self.request, 'cart/cart_detail.html', context)
         except ObjectDoesNotExist:
