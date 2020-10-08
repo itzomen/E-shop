@@ -13,8 +13,6 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1)
 
     class Meta:
-        """Meta definition for CartItem."""
-
         verbose_name = 'CartItem'
         verbose_name_plural = 'CartItems'
 
