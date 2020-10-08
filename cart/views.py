@@ -15,8 +15,8 @@ def add_to_cart(request, slug):
     cart_item, created = CartItem.objects.get_or_create( 
                             item=item,
                             user=request.user,
-                            ordered=False)
-    cart_qs = Cart.objects.filter(user=request.user, ordered=False)
+                            in_cart=True)
+    cart_qs = Cart.objects.filter(user=request.user, in_cart=True)
     if cart_qs.exists():
         cart = cart_qs[0]
         # checking if item in cart
@@ -42,7 +42,7 @@ def remove_from_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     cart_qs = Cart.objects.filter(
         user=request.user,
-        ordered=False
+        in_cart=True
     )
     if cart_qs.exists():
         cart = cart_qs[0]
@@ -51,7 +51,7 @@ def remove_from_cart(request, slug):
             cart_item = CartItem.objects.filter(
                 item=item,
                 user=request.user,
-                ordered=False
+                in_cart=True
             )[0]
             cart.items.remove(cart_item)
             cart_item.delete()
@@ -73,7 +73,7 @@ def reduce_from_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     cart_qs = Cart.objects.filter(
         user=request.user,
-        ordered=False
+        in_cart=True
     )
     if cart_qs.exists():
         cart = cart_qs[0]
@@ -82,7 +82,7 @@ def reduce_from_cart(request, slug):
             cart_item = CartItem.objects.filter(
                 item=item,
                 user=request.user,
-                ordered=False
+                in_cart=True
             )[0]
             if cart_item.quantity > 1:
                 cart_item.quantity -= 1
@@ -105,7 +105,7 @@ def reduce_from_cart(request, slug):
 class CartSummaryView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         try:
-            cart = Cart.objects.get(user=self.request.user, ordered=False)
+            cart = Cart.objects.get(user=self.request.user, in_cart=True)
             context = {
                 'cart': cart
             }

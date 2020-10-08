@@ -9,7 +9,7 @@ class CartItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    ordered = models.BooleanField(default=False)
+    in_cart = models.BooleanField(default=True)
     quantity = models.IntegerField(default=1)
 
     class Meta:
@@ -31,7 +31,7 @@ class Cart(models.Model):
                              on_delete=models.CASCADE)
     items = models.ManyToManyField(CartItem)
     added_date = models.DateTimeField(auto_now_add=True)
-    ordered = models.BooleanField(default=False)
+    in_cart = models.BooleanField(default=True)
 
     def __str__(self):
         return self.user.username
