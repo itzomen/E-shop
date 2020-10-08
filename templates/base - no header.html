@@ -36,7 +36,16 @@
                     </ul>
                 </div>
                 <a href="{% url 'cart:cart-summary' %}">
-                    <i class="fas fa-shopping-cart"></i>
+                    <i class="fas fa-shopping-cart">
+                        {% if user.is_authenticated %}
+                            {% if cart.count %}
+                                {{ cart.count }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        {% else %}
+                        {% endif %}
+                    </i>
                 </a>
             </div>
             <i class="fas fa-bars" onclick="togglemenu()"></i>
