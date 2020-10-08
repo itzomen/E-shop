@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
 ]
 
 CRISPY_TEMPLATE_PACK ='uni_form'
