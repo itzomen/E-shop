@@ -37,6 +37,11 @@
                 </div>
                 <a href="{% url 'cart:cart-summary' %}">
                     <i class="fas fa-shopping-cart">
+                        {% if cart.count %}
+                        {{ cart.count }}
+                        {% else %}
+                        0
+                        {% endif %}
                     </i>
                 </a>
             </div>

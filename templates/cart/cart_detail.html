@@ -6,7 +6,7 @@
 
 <div class="Cart">
     <h2 style="text-transform: capitalize;">{{ user.username }}  Shopping Cart has 
-        {% if cart.get_total %}
+        {% if cart.count %}
         {{ cart.count }} Item(s)
         {% else %}
          No Item
