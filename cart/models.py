@@ -40,12 +40,11 @@ class Cart(models.Model):
 
     def get_total(self):
         total = 0
+        #calculate total price of items in cart
         for cart_item in self.items.all():
             total += cart_item.item_final_price()
         return total
 
     def count(self):
-        count = 0
-        for cart_item in self.items.all():
-            count += 1
-        return count
+        #counting number of items in cart
+        return len(self.items.all())
