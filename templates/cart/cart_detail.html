@@ -60,7 +60,7 @@
         <div class="total"><h2>TOTAL</h2></div>
         <div class="total"><h2>${{ cart.get_total }}</h2></div>
         <div class="total">
-            <a href="" class="button">Checkout</a>
+            <a href="{% url 'orders:create-order' %}" class="button">Checkout</a>
         </div>
         {% endif %}
     </div>

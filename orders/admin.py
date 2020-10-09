@@ -1,44 +1,37 @@
 from django.contrib import admin
-from .models import Order
+from .models import Order, OrderInfo
 
-@admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    '''Admin View for Order'''
-
-    list_display = [
-        'id',
-        'user',
-        'email',
-        'city',
-        'address',
-        'order_cart',
-        'ordered',
-        'created',
-        'updated',
-        'paid' 
-    ]
-
+    list_display = ['user',
+                    'items',
+                    'created',
+                    'ordered',
+                    'paid'
+                    ]
     list_display_links = [
-        'id',
         'user',
-        'ordered',
-        'created',
-        'updated',
-        'paid'
+        'order_info'
     ]
-    
-    list_filter = [
-        'id',
-        'user',
-        'ordered',
-        'created',
-        'paid',
-        'updated']
+    list_filter = ['ordered',
+                   'paid']
 
     search_fields = [
-        'id',
         'user__username',
-        'first_name',
-        'last_name'
+        'ordered'
     ]
-    
+
+
+class OrderInfoAdmin(admin.ModelAdmin):
+    list_display = [
+        'user',
+        'first_name',
+        'last_name',
+        'email',
+        'city',
+        'address'
+    ]
+    list_filter = ['user', 'first_name']
+    search_fields = ['user']
+
+
+admin.site.register(OrderInfo, OrderInfoAdmin)
