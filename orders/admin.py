@@ -1,11 +1,5 @@
 from django.contrib import admin
-from .models import Order, OrderItem
-
-# Register your models here.
-
-class OrderItemInline(admin.TabularInline):
- model = OrderItem
- raw_id_fields = ['item']
+from .models import Order
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
@@ -17,6 +11,7 @@ class OrderAdmin(admin.ModelAdmin):
         'email',
         'city',
         'address',
+        'order_cart',
         'ordered',
         'created',
         'updated',
@@ -46,4 +41,4 @@ class OrderAdmin(admin.ModelAdmin):
         'first_name',
         'last_name'
     ]
-    inlines = [OrderItemInline]
+    
