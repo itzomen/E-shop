@@ -32,7 +32,7 @@ class OrderItem(models.Model):
                               related_name='order', 
                               on_delete=models.CASCADE)
     item = models.ForeignKey(Item, 
-                              related_name='items', 
+                              related_name='item', 
                               on_delete=models.CASCADE)
 
     price = models.DecimalField(max_digits=10, decimal_places=2)
