@@ -16,7 +16,7 @@ def add_to_cart(request, slug):
                             item=item,
                             user=request.user,
                             in_cart=True)
-    cart_qs = Cart.objects.filter(user=request.user, in_cart=True)
+    cart_qs = Cart.objects.filter(user=request.user)
     if cart_qs.exists():
         cart = cart_qs[0]
         # checking if item in cart
@@ -41,8 +41,7 @@ def add_to_cart(request, slug):
 def remove_from_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     cart_qs = Cart.objects.filter(
-        user=request.user,
-        in_cart=True
+        user=request.user
     )
     if cart_qs.exists():
         cart = cart_qs[0]
@@ -72,8 +71,7 @@ def remove_from_cart(request, slug):
 def reduce_from_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     cart_qs = Cart.objects.filter(
-        user=request.user,
-        in_cart=True
+        user=request.user
     )
     if cart_qs.exists():
         cart = cart_qs[0]
