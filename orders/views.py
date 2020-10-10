@@ -29,4 +29,4 @@ def create_order(request):
     else:
         form = OrderForm()
     return render(request, 'orders/create.html',
-                  {'items': items, 'form': form})
+                  {'items': items, 'form': form, 'total': total})
