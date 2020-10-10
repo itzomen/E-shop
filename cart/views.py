@@ -105,7 +105,7 @@ def reduce_from_cart(request, slug):
 class CartSummaryView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         try:
-            cart = Cart.objects.get(user=self.request.user, in_cart=True)
+            cart = Cart.objects.get(user=self.request.user)
             context = {
                 'cart': cart
             }

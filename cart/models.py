@@ -31,7 +31,6 @@ class Cart(models.Model):
                              on_delete=models.CASCADE)
     items = models.ManyToManyField(CartItem)
     added_date = models.DateTimeField(auto_now_add=True)
-    in_cart = models.BooleanField(default=True)
 
     def __str__(self):
         return self.user.username

@@ -1,37 +1,24 @@
 from django.contrib import admin
-from .models import Order, OrderInfo
+from .models import Order, OrderItems
 
+
+class OrderItemsInline(admin.TabularInline):
+    model = OrderItems
+    raw_id_fields = ['order_items']
+
+
+@admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['user',
-                    'items',
-                    'created',
-                    'ordered',
-                    'paid'
-                    ]
-    list_display_links = [
-        'user',
-        'order_info'
-    ]
-    list_filter = ['ordered',
-                   'paid']
+     '''Admin View for Order'''
+     list_display = ['id',
+                    'first_name',
+                    'last_name', 
+                    'email',
+                    'city',
+                    'address', 
+                    'paid',
+                    'created', 
+                    'updated']
 
-    search_fields = [
-        'user__username',
-        'ordered'
-    ]
-
-
-class OrderInfoAdmin(admin.ModelAdmin):
-    list_display = [
-        'user',
-        'first_name',
-        'last_name',
-        'email',
-        'city',
-        'address'
-    ]
-    list_filter = ['user', 'first_name']
-    search_fields = ['user']
-
-
-admin.site.register(OrderInfo, OrderInfoAdmin)
+     list_filter = ['paid', 'created', 'updated']
+     inlines = [OrderItemsInline]
