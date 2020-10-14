@@ -13,3 +13,8 @@ def email_order(order_id):
     message = f'Dear {order.first_name},\n\n' \
     f'You have successfully ordered from E-shop.' \
     f'Your order ID is {order.id}.'
+    e_mail = send_mail(subject,
+                       message,
+                       'admin@E-shop.com',
+                       [order.email])
+    return e_mail
