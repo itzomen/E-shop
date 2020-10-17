@@ -3,6 +3,7 @@ from .models import Order, OrderItems
 from cart.models import Cart, CartItem
 from .forms import OrderForm
 from django.contrib import messages
+from .tasks import email_order
 
 
 
@@ -14,7 +15,6 @@ def create_order(request):
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if items:
-
             if form.is_valid():
                 order_form = form.save()
                 for item in items:
@@ -26,6 +26,8 @@ def create_order(request):
                                             total=total)
                 #delete query set i.e cart
                 items.delete()
+                # delay to launch the task asynchronously
+                email_order.delay(order.id)
                 messages.info(request, f"Your order was created")
                 return render(request, 'orders/created.html',
                             {'order': order_form})
