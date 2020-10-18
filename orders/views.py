@@ -27,7 +27,7 @@ def create_order(request):
                 #delete query set i.e cart
                 items.delete()
                 # delay to launch the task asynchronously
-                email_order.delay(order.id)
+                email_order.delay(order_form.id)
                 messages.info(request, f"Your order was created")
                 return render(request, 'orders/created.html',
                             {'order': order_form})
