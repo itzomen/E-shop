@@ -9,3 +9,7 @@ app = Celery('e_shop')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 # Setting Celery to auto discover asynchronous tasks for e shop
 app.autodiscover_tasks()
+
+@app.task(bind=True)
+def debug_task(self):
+    print(f'Request: {self.request!r}')

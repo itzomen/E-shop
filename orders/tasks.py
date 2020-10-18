@@ -1,8 +1,8 @@
-from celery import task
+from e_shop.celery import app
 from django.core.mail import send_mail
 from .models import Order
 
-@task
+@app.task
 def email_order(order_id):
     """
     This task sends the order number via email to the user
