@@ -48,9 +48,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # My apps
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payments.apps.PaymentsConfig',
 ]
 
 CRISPY_TEMPLATE_PACK ='uni_form'
@@ -157,9 +159,10 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'all_static')]
 
 
 # Braintree settings
+
 import braintree
 # created .gitignore file and added config.py containing braintree secret keys
-import config.py
+from config import BRAINTREE_MERCHANT_ID, BRAINTREE_PUBLIC_KEY, BRAINTREE_PRIVATE_KEY
 
 BRAINTREE_CONF = braintree.Configuration(
         braintree.Environment.Sandbox,

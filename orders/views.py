@@ -4,6 +4,8 @@ from cart.models import Cart, CartItem
 from .forms import OrderForm
 from django.contrib import messages
 from .tasks import email_order
+#used payments app
+from django.urls import reverse
 
 
 
@@ -28,6 +30,7 @@ def create_order(request):
                 items.delete()
                 # delay to launch the task asynchronously
                 email_order.delay(order_form.id)
+                
                 messages.info(request, f"Your order was created")
                 return render(request, 'orders/created.html',
                             {'order': order_form})
