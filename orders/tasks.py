@@ -11,10 +11,11 @@ def email_order(order_id):
     order = Order.objects.get(id=order_id)
     subject = f'E-shop Order Number {order.id}'
     message = f'Dear {order.first_name},\n\n' \
-    f'You have successfully ordered from E-shop.' \
-    f'Your order ID is {order.id}.'
+              f'You have successfully ordered from E-shop.' \
+              f'Your order ID is {order.id}.'
     e_mail = send_mail(subject,
                        message,
                        'admin@E-shop.com',
-                       [order.email])
+                       [order.email],
+                       fail_silently=False,)
     return e_mail
