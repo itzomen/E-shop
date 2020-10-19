@@ -155,3 +155,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root/')
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'all_static')]
 
+
+# Braintree settings
+import braintree
+# created .gitignore file and added config.py containing braintree secret keys
+import config.py
+
+BRAINTREE_CONF = braintree.Configuration(
+        braintree.Environment.Sandbox,
+        BRAINTREE_MERCHANT_ID,
+        BRAINTREE_PUBLIC_KEY,
+        BRAINTREE_PRIVATE_KEY
+)
