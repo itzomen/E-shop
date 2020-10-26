@@ -10,8 +10,9 @@ def payment_process(request):
     payment process
     """
     order_id = request.session.get('order_id')
-    order_total = request.session.get('order_total')
+    #order_total = request.session.get('order_total')
     order = get_object_or_404(Order, id=order_id)
+    order_total = order.total
 
     if request.method == 'POST':
         # retrieve nonce
@@ -28,11 +29,17 @@ def payment_process(request):
             # store the unique transaction id
             order.braintree_id = result.transaction.id
             order.save()
-            return redirect('payment:done')
+            return redirect('payments:done')
         else:
-            return redirect('payment:canceled')
+            return redirect('payments:canceled')
     else:
         # generate token
         client_token = gateway.client_token.generate()
-        return render(request, 'payment/process.html',
+        return render(request, 'payments/process.html',
                       {'order': order, 'client_token': client_token})
+
+def payment_done(request):
+    return render(request, 'payments/done.html')
+
+def payment_canceled(request):
+    return render(request, 'payments/canceled.html')
