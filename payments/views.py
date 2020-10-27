@@ -36,3 +36,10 @@ def payment_process(request):
         client_token = gateway.client_token.generate()
         return render(request, 'payment/process.html',
                       {'order': order, 'client_token': client_token})
+
+
+def payment_done(request):
+    return render(request, 'payments/done.html')
+
+def payment_canceled(request):
+    return render(request, 'payments/canceled.html')

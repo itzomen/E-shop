@@ -30,11 +30,10 @@ def create_order(request):
                 items.delete()
                 # delay to launch the task asynchronously
                 email_order.delay(order_form.id)
-                # set the order id and total is session
+                # set the order id in session
                 request.session['order_id'] = order_form.id
-                request.session['order_total'] = total
                 # redirect for payment
-                return redirect(reverse('payment:process'))
+                return redirect(reverse('payments:process'))
                 # messages.info(request, f"Your order was created")
                 # return render(request, 'orders/created.html',
                 #             {'order': order_form})
