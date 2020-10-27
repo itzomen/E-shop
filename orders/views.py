@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Order, OrderItems
+from .models import OrderItems
 from cart.models import Cart
 from .forms import OrderForm
 from django.contrib import messages
@@ -19,21 +19,22 @@ def create_order(request):
         if items:
             if form.is_valid():
                 order_form = form.save()
-                Order.objects.create(total=total)
                 for item in items:
                     OrderItems.objects.create(user=user,
                                             order=order_form,
                                             order_items=item.item,
                                             price=item.item.price,
-                                            quantity=item.quantity)
+                                            quantity=item.quantity,
+                                            total=total)
                 #delete query set i.e cart
                 items.delete()
                 # delay to launch the task asynchronously
-                #email_order.delay(order_form.id)
+                email_order.delay(order_form.id)
                 # set the order id and total is session
                 request.session['order_id'] = order_form.id
+                request.session['order_total'] = total
                 # redirect for payment
-                return redirect(reverse('payments:process'))
+                return redirect(reverse('payment:process'))
                 # messages.info(request, f"Your order was created")
                 # return render(request, 'orders/created.html',
                 #             {'order': order_form})

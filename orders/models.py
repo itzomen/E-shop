@@ -12,7 +12,6 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
     
     braintree_id = models.CharField(max_length=150, blank=True)
 
@@ -33,6 +32,7 @@ class OrderItems(models.Model):
                               on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
         verbose_name = 'OrderItems'
