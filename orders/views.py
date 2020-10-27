@@ -20,7 +20,7 @@ def create_order(request):
             if form.is_valid():
                 order_form = form.save()
                 for item in items:
-                    OrderItems.objects.create(user=user,
+                    orderitems = OrderItems.objects.create(user=user,
                                             order=order_form,
                                             order_items=item.item,
                                             price=item.item.price,
@@ -30,8 +30,9 @@ def create_order(request):
                 items.delete()
                 # delay to launch the task asynchronously
                 email_order.delay(order_form.id)
-                # set the order id in session
+                # set the order and orderitems id in session
                 request.session['order_id'] = order_form.id
+                request.session['orderitems_id'] = orderitems.id
                 # redirect for payment
                 return redirect(reverse('payments:process'))
                 # messages.info(request, f"Your order was created")
