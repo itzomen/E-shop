@@ -4,71 +4,35 @@
 
 {% block content %}
 
-    <h1>Pay by credit card</h1>
-    <form id="payment" method="post">
-        <label for="card-number">Card Number</label>
-        <div id="card-number" class="field"></div>
-        <label for="cvv">CVV</label>
-        <div id="cvv" class="field"></div>
-        <label for="expiration-date">Expiration Date</label>
-        <div id="expiration-date" class="field"></div>
-        <input type="hidden" id="nonce" name="payment_method_nonce"
-        value="">
-        {% csrf_token %}
-        <input type="submit" value="Pay">
-    </form>
+      <center><h1> {{ order.first_name }} Payment Process</h1></center>
+      <button id="checkout-button">PAY NOW</button>
 
-    <!-- includes the Braintree JS client SDK -->
-    <script src="https://js.braintreegateway.com/web/3.44.2/js/client.
-    min.js"></script>
-    <script src="https://js.braintreegateway.com/web/3.44.2/js/hostedfields.min.js"></script>
-    
-    <script>
-    var form = document.querySelector('#payment');
-    var submit = document.querySelector('input[type="submit"]');
-
-    braintree.client.create({
-        authorization: '{{ client_token }}'
-    }, function (clientErr, clientInstance) {
-        if (clientErr) {
-            console.error(clientErr);
-            return;
-        }
-
-        braintree.hostedFields.create({
-            client: clientInstance,
-            styles: {
-                'input': {'font-size': '13px'},
-                'input.invalid': {'color': 'red'},
-                'input.valid': {'color': 'green'}
-            },
-            fields: {
-                number: {selector: '#card-number'},
-                cvv: {selector: '#cvv'},
-                expirationDate: {selector: '#expiration-date'}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+      // Create an instance of the Stripe object with your publishable API key
+      var stripe = Stripe("pk_test_51HlCuYKVqModin9kpjDtnrwOKeJ66ZOBEdoDuYcWYaYgfWAbA9He9cG19fCfgUq8tzFBdZr96EO6Cd4hLjmC6Tb2001f9Hlgwt");
+      var checkoutButton = document.getElementById("checkout-button");
+      checkoutButton.addEventListener("click", function () {
+        fetch("/payment/process/", {
+          method: "POST",
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (session) {
+            return stripe.redirectToCheckout({ sessionId: session.id });
+          })
+          .then(function (result) {
+            // If redirectToCheckout fails due to a browser or network
+            // error, you should display the localized error message to your
+            // customer using error.message.
+            if (result.error) {
+              alert(result.error.message);
             }
-        }, function (hostedFieldsErr, hostedFieldsInstance) {
-            if (hostedFieldsErr) {
-                console.error(hostedFieldsErr);
-                return;
-            }
-
-            submit.removeAttribute('disabled');
-
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
-                    if (tokenizeErr) {
-                    console.error(tokenizeErr);
-                    return;
-                    }
-                    // set nonce to send to the server
-                    document.getElementById('nonce').value = payload.nonce;
-                    // submit form
-                    document.getElementById('payment').submit();
-                });
-            }, false);
-        });
-    });
+          })
+          .catch(function (error) {
+            console.error("Error:", error);
+          });
+      });
     </script>
 {% endblock %}

@@ -158,15 +158,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root/')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'all_static')]
 
 
-# Braintree settings
+# Stripe settings
+from config import SECRET_KEY, PUBLISHABLE_KEY
+STRIPE_SECRET_KEY = SECRET_KEY
+STRIPE_PUBLISHABLE_KEY = PUBLISHABLE_KEY
 
-import braintree
-# created .gitignore file and added config.py containing braintree secret keys
-from config import BRAINTREE_MERCHANT_ID, BRAINTREE_PUBLIC_KEY, BRAINTREE_PRIVATE_KEY
-
-BRAINTREE_CONF = braintree.Configuration(
-        braintree.Environment.Sandbox,
-        BRAINTREE_MERCHANT_ID,
-        BRAINTREE_PUBLIC_KEY,
-        BRAINTREE_PRIVATE_KEY
-)
+# Domain URL
+DOMAIN_URL = 'http://localhost:8000/'

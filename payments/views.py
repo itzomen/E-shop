@@ -1,50 +1,78 @@
-import braintree
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from django.contrib import messages
 from orders.models import Order, OrderItems
 # instantiate Braintree payment gateway
-gateway = braintree.BraintreeGateway(settings.BRAINTREE_CONF)
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import stripe
 
+stripe.api_key =settings.STRIPE_SECRET_KEY
+
+
+@csrf_exempt
 def payment_process(request):
     """
     payment process
     """
-    order_id = request.session.get('order_id')
     orderitems_id = request.session.get('orderitems_id')
-
+    order_id = request.session.get('order_id')
+    
     order = get_object_or_404(Order, id=order_id)
     order_items = get_object_or_404(OrderItems, id=orderitems_id)
-    order_total = order_items.total
-    messages.info(request, f"{order_total} is total")
+    # converting order from decimal to interger
+    order_total = int(order_items.total * 100)
+    messages.info(request, f"Your Order total is {order_items.total}")
 
     if request.method == 'POST':
-        # retrieve nonce
-        nonce = request.POST.get('payment_method_nonce', None)
-        # create and submit transaction
-        result = gateway.transaction.sale( {'amount': f'{order_total:.2f}',
-                                            'payment_method_nonce': nonce,
-                                            'options': {
-                                            'submit_for_settlement': True}
-                                            })
-        if result.is_success:
-            # mark the order as paid
-            order.paid = True
-            # store the unique transaction id
-            order.braintree_id = result.transaction.id
-            order.save()
-            return redirect('payments:done')
-        else:
-            return redirect('payments:canceled')
+        domain_url = settings.DOMAIN_URL + 'payment/'
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        try:
+            # Create new Checkout Session for the order
+            # Other optional params include:
+            # [billing_address_collection] - to display billing address details on the page
+            # [customer] - if you have an existing Stripe Customer ID
+            # [payment_intent_data] - capture the payment later
+            # [customer_email] - prefill the email input in the form
+            # For full details see https://stripe.com/docs/api/checkout/sessions/create
+
+            # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+            checkout_session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                success_url=domain_url + 'success/',
+                cancel_url=domain_url + 'cancelled/',
+                
+                
+                line_items=[
+                    {
+                        'price_data': {
+                            'currency': 'usd',
+                            'unit_amount': order_total,
+                            'product_data': {
+                                'name': f'Order Number {order.id}',
+                                'images': ['https://i.imgur.com/EHyR2nP.png'],
+                            },
+                        },
+                        'quantity': order_items.quantity,
+                    },
+                ],
+                mode='payment'
+            )
+            return JsonResponse({'id': checkout_session.id})
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
+
     else:
-        # generate token
-        client_token = gateway.client_token.generate()
         return render(request, 'payments/process.html',
-                      {'order': order, 'client_token': client_token})
+                      {'order': order})
 
 
 def payment_done(request):
-    return render(request, 'payments/done.html')
+    order_id = request.session.get('order_id')
+    order = get_object_or_404(Order, id=order_id)
+    order.paid = True
+    order.save()
+    return render(request, 'payments/paid.html')
 
 def payment_canceled(request):
-    return render(request, 'payments/canceled.html')
+    return render(request, 'payments/cancelled.html')
