@@ -18,6 +18,8 @@ class Order(models.Model):
         return f'Order {self.id}'
 
     class Meta:
+        verbose_name = 'Order'
+        verbose_name_plural = 'Orders'
         ordering = ('-created',)
 
 class OrderItems(models.Model):
