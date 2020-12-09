@@ -1,5 +1,5 @@
 # E-shop
-![Shop Logo](shopart.png)
+<img src="shopart.png" width="500px">
 
 ## [Preview E-shop](https://itzomen.pythonanywhere.com)
 
