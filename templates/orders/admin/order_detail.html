@@ -60,9 +60,9 @@
       </tr>
     </thead>
     <tbody>
-      {% for item in order.items.all %}
+      {% for item in order.order.all %}
         <tr class="row{% cycle "1" "2" %}">
-          <td>{{ item.product.name }}</td>
+          <td>{{ item.order_items.name }}</td>
           <td class="num">${{ item.price }}</td>
           <td class="num">{{ item.quantity }}</td>
           <td class="num">${{ item.get_cost }}</td>
