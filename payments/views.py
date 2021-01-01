@@ -15,14 +15,12 @@ def payment_process(request):
     """
     payment process
     """
-    orderitems_id = request.session.get('orderitems_id')
     order_id = request.session.get('order_id')
     
     order = get_object_or_404(Order, id=order_id)
-    order_items = get_object_or_404(OrderItems, id=orderitems_id)
     # converting order from decimal to interger
-    order_total = int(order_items.total * 100)
-    messages.info(request, f"Your Order total is {order_items.total}")
+    order_total = int(order.total * 100)
+    messages.info(request, f"Your Order total is {order.total}")
 
     if request.method == 'POST':
         domain_url = settings.DOMAIN_URL + 'payment/'
@@ -53,7 +51,7 @@ def payment_process(request):
                                 'images': ['https://i.imgur.com/EHyR2nP.png'],
                             },
                         },
-                        'quantity': order_items.quantity,
+                        'quantity': 1,
                     },
                 ],
                 mode='payment'

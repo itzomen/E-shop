@@ -11,6 +11,7 @@ class Order(models.Model):
     address = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
     paid = models.BooleanField(default=False)
 
 
@@ -33,7 +34,6 @@ class OrderItems(models.Model):
                               on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
         verbose_name = 'OrderItems'

@@ -1,3 +1,4 @@
+from django.forms.forms import Form
 from django.shortcuts import render, redirect
 from .models import OrderItems
 from cart.models import Cart
@@ -14,7 +15,7 @@ from .models import Order
 @staff_member_required
 def admin_order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)
-    return render(request, 'admin/order_detail.html',
+    return render(request, 'orders/admin/order_detail.html',
                             {'order': order})
 
 
@@ -27,21 +28,21 @@ def create_order(request):
         form = OrderForm(request.POST)
         if items:
             if form.is_valid():
-                order_form = form.save()
+                order_form = form.save(commit=False)
+                order_form.total = total
+                order_form.save()
                 for item in items:
                     orderitems = OrderItems.objects.create(user=user,
                                             order=order_form,
                                             order_items=item.item,
                                             price=item.item.price,
-                                            quantity=item.quantity,
-                                            total=total)
+                                            quantity=item.quantity)
                 #delete query set i.e cart
                 items.delete()
                 # delay to launch the task asynchronously
                 email_order.delay(order_form.id)
                 # set the order and orderitems id in session
                 request.session['order_id'] = order_form.id
-                request.session['orderitems_id'] = orderitems.id
                 # redirect for payment
                 messages.info(request, f"Your order was created")
                 return redirect(reverse('payments:process'))
