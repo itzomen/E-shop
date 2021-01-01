@@ -40,7 +40,7 @@
   </tr>
   <tr>
     <th>Total amount</th>
-    <td>${{ order_items.total }}</td>
+    <td>${{ order.get_total_cost }}</td>
   </tr>
   <tr>
     <th>Status</th>
@@ -70,7 +70,7 @@
       {% endfor %}
       <tr class="total">
         <td colspan="3">Total</td>
-        <td class="num">${{ order_items.total }}</td>
+        <td class="num">${{ order.get_total_cost }}</td>
       </tr>
     </tbody>
   </table>
