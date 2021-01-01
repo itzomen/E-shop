@@ -14,7 +14,9 @@ from .models import Order
 @staff_member_required
 def admin_order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)
-    return render(request, 'admin/orders/order/detail.html',{'order': order})
+    order_items = get_object_or_404(OrderItems, id=orderitems_id)
+    return render(request, 'admin/order_detail.html',
+                    {'order': order, 'order_items':order_items})
 
 
 def create_order(request):
