@@ -6,7 +6,15 @@ from django.contrib import messages
 from .tasks import email_order
 #used payments app
 from django.urls import reverse
+#added for custom admin views
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import get_object_or_404
+from .models import Order
 
+@staff_member_required
+def admin_order_detail(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    return render(request, 'admin/orders/order/detail.html',{'order': order})
 
 
 def create_order(request):
@@ -34,10 +42,9 @@ def create_order(request):
                 request.session['order_id'] = order_form.id
                 request.session['orderitems_id'] = orderitems.id
                 # redirect for payment
+                messages.info(request, f"Your order was created")
                 return redirect(reverse('payments:process'))
                 # messages.info(request, f"Your order was created")
-                # return render(request, 'orders/created.html',
-                #             {'order': order_form})
         else:
             messages.info(request, "Add items to cart")
             return redirect('cart:cart-summary')
