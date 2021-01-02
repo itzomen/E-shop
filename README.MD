@@ -20,4 +20,5 @@ Steps:
 ### Finally runserver
 `python manage.py runserver`
 
-
+#### NB
+For Testing use 'http://localhost:8000/' as that is the domain URL in the settings.py
