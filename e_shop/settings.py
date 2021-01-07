@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'payments.apps.PaymentsConfig',
+    'discounts.apps.CouponsConfig',
 ]
 
 CRISPY_TEMPLATE_PACK ='uni_form'
