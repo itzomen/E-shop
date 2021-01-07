@@ -30,6 +30,10 @@ class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     items = models.ManyToManyField(CartItem)
+
+    coupon = models.ForeignKey(
+        'Coupon', on_delete=models.SET_NULL, blank=True, null=True)
+        
     added_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -45,3 +49,10 @@ class Cart(models.Model):
     def count(self):
         #counting number of items in cart
         return len(self.items.all())
+
+class Coupon(models.Model):
+    code = models.CharField(max_length=15)
+    amount = models.FloatField()
+
+    def __str__(self):
+        return self.code
