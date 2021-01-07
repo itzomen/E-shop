@@ -9,6 +9,10 @@ class Order(models.Model):
     email = models.EmailField()
     city = models.CharField(max_length=20)
     address = models.CharField(max_length=100)
+
+    coupon = models.ForeignKey(
+        'Coupon', on_delete=models.SET_NULL, blank=True, null=True)
+        
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
     total = models.DecimalField(max_digits=10, decimal_places=2)
@@ -44,3 +48,10 @@ class OrderItems(models.Model):
     
     def get_cost(self):
         return self.price * self.quantity
+
+class Coupon(models.Model):
+    code = models.CharField(max_length=15)
+    amount = models.FloatField()
+
+    def __str__(self):
+        return self.code
