@@ -97,7 +97,7 @@ def get_coupon(request, code):
         return coupon
     except ObjectDoesNotExist:
         messages.info(request, "This coupon does not exist")
-        return redirect('orders:create-order')
+        #return redirect('orders:create-order')
 
 class AddCouponView(View):
     def post(self, *args, **kwargs):
@@ -109,8 +109,11 @@ class AddCouponView(View):
                 code = coupon_form.cleaned_data.get('code')
                 cart.coupon = get_coupon(self.request, code)
                 cart.save()
-                messages.success(self.request, "Successfully added coupon")
-                messages.info(self.request, f"Coupon {cart.coupon.amount}")
+                if cart.coupon:
+                    messages.success(self.request, "Successfully added coupon")
+                    messages.info(self.request, f"Coupon {cart.coupon.amount}")
+                else:
+                    messages.success(self.request, "Coupon not Found")
                 return redirect('orders:create-order')
             except ObjectDoesNotExist:
                 messages.info(self.request, "You do not have an active order")
