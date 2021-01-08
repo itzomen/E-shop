@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import View
 from .tasks import email_order
+from django.utils import timezone
 #used payments app
 from django.urls import reverse
 #added for custom admin views
@@ -92,12 +93,16 @@ class OrderView(View):
     #             {'items': items, 'form': form, 'total': total})
 
 def get_coupon(request, code):
+    now = timezone.now()
     try:
-        coupon = Coupon.objects.get(code=code)
+        #coupon = Coupon.objects.get(code=code)
+        coupon = Coupon.objects.get(code__iexact=code,
+                                        valid_from__lte=now,
+                                        valid_to__gte=now,
+                                        active=True)
         return coupon
-    except ObjectDoesNotExist:
+    except Coupon.DoesNotExist:
         messages.info(request, "This coupon does not exist")
-        #return redirect('orders:create-order')
 
 class AddCouponView(View):
     def post(self, *args, **kwargs):
@@ -105,16 +110,13 @@ class AddCouponView(View):
 
         coupon_form = CouponForm(self.request.POST or None)
         if coupon_form.is_valid():
-            try:
-                code = coupon_form.cleaned_data.get('code')
-                cart.coupon = get_coupon(self.request, code)
+            code = coupon_form.cleaned_data['code']
+            cart.coupon = get_coupon(self.request, code)               
+            if cart.coupon:
+                cart.discount = cart.coupon.discount
                 cart.save()
-                if cart.coupon:
-                    messages.success(self.request, "Successfully added coupon")
-                    messages.info(self.request, f"Coupon {cart.coupon.amount}")
-                else:
-                    messages.success(self.request, "Coupon not Found")
-                return redirect('orders:create-order')
-            except ObjectDoesNotExist:
-                messages.info(self.request, "You do not have an active order")
-                return redirect('cart:cart-summary')
+                messages.success(self.request, "Successfully added coupon")
+                messages.info(self.request, f"{cart.coupon.discount}% OFF Coupon")
+            
+            return redirect('orders:create-order')
+           

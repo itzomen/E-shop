@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from shop.models import Item
 from cart.models import Coupon
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Order(models.Model):
@@ -13,6 +14,9 @@ class Order(models.Model):
 
     coupon = models.ForeignKey(
         Coupon , on_delete=models.SET_NULL, blank=True, null=True)
+    discount = models.IntegerField(default=0,
+                                   validators=[MinValueValidator(0),
+                                               MaxValueValidator(100)])
         
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)

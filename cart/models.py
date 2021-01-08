@@ -1,8 +1,10 @@
 from django.db import models
 from django.conf import settings
 from shop.models import Item
+from django.core.validators import MinValueValidator, MaxValueValidator
+from decimal import Decimal
 
-# Create your models here.
+
 class CartItem(models.Model):
     """Model definition for CartItem."""
 
@@ -32,7 +34,10 @@ class Cart(models.Model):
     items = models.ManyToManyField(CartItem)
 
     coupon = models.ForeignKey(
-        'Coupon', on_delete=models.SET_NULL, blank=True, null=True)
+        'Coupon', related_name='coupon', on_delete=models.SET_NULL, blank=True, null=True)
+    discount = models.IntegerField(default=0,
+                                   validators=[MinValueValidator(0),
+                                               MaxValueValidator(100)])
 
     added_date = models.DateTimeField(auto_now_add=True)
 
@@ -42,19 +47,27 @@ class Cart(models.Model):
     def get_total(self):
         total = 0
         #calculate total price of items in cart
-        for cart_item in self.items.all():
-            total += cart_item.item_final_price()
-        if self.coupon:
-            total -= self.coupon.amount
-        return total
+        # for cart_item in self.items.all():
+        #     total += cart_item.item_final_price()
+        total = sum(cart_item.item_final_price() for cart_item in self.items.all())
+        # if self.coupon:
+        #     total -= self.coupon.amount
+            
+        return total - total * (self.discount / Decimal(100))
 
     def count(self):
         #counting number of items in cart
         return len(self.items.all())
 
 class Coupon(models.Model):
-    code = models.CharField(max_length=15)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    code = models.CharField(max_length=50,
+                            unique=True)
+    valid_from = models.DateTimeField()
+    valid_to = models.DateTimeField()
+    discount = models.IntegerField(
+                   validators=[MinValueValidator(0),
+                               MaxValueValidator(100)])
+    active = models.BooleanField()
 
     def __str__(self):
         return self.code

@@ -11,4 +11,4 @@ class OrderForm(forms.ModelForm):
                 'email', 'city', 'address']
 
 class CouponForm(forms.Form):
-    code = forms.CharField(label=('Coupon'))
+    code = forms.CharField()
