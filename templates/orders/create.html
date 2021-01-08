@@ -29,7 +29,7 @@
             <br>
             <div class="coupon">
                 <h2>Add Coupon</h2>
-                <form method="post" class="order-form">
+                <form action="{% url "orders:add-coupon" %}" method="post" class="order-form">
                     {{ coupon_form.as_p }}
                     <p><input type="submit" value="Add Coupon"></p>
                     {% csrf_token %}

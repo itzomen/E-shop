@@ -37,14 +37,6 @@ def admin_order_pdf(request, order_id):
             settings.STATIC_ROOT + 'css/pdf.css')])
     return response
 
-def get_coupon(request, code):
-    try:
-        coupon = Coupon.objects.get(code=code)
-        return coupon
-    except ObjectDoesNotExist:
-        messages.info(request, "This coupon does not exist")
-        return redirect("orders:create-order")
-
 
 class OrderView(View):
     def get(self, *args, **kwargs):
@@ -65,15 +57,6 @@ class OrderView(View):
     def post(self, *args, **kwargs):
 
         cart = Cart.objects.get(user=self.request.user)
-    
-        coupon_form = CouponForm(self.request.POST or None)
-        if coupon_form.is_valid():
-            code = coupon_form.cleaned_data.get('code')
-            cart.coupon = get_coupon(self.request, code)
-            cart.save()
-            messages.success(self.request, "Successfully added coupon")
-            return redirect("orders:create-order")
-
         user = cart.user
         total = cart.get_total()
         items = cart.items.all()
@@ -108,20 +91,27 @@ class OrderView(View):
     # return render(request, 'orders/create.html',
     #             {'items': items, 'form': form, 'total': total})
 
-
+def get_coupon(request, code):
+    try:
+        coupon = Coupon.objects.get(code=code)
+        return coupon
+    except ObjectDoesNotExist:
+        messages.info(request, "This coupon does not exist")
+        return redirect('orders:create-order')
 
 class AddCouponView(View):
     def post(self, *args, **kwargs):
+        cart = Cart.objects.get(user=self.request.user)
+
         coupon_form = CouponForm(self.request.POST or None)
         if coupon_form.is_valid():
             try:
                 code = coupon_form.cleaned_data.get('code')
-                order = Order.objects.get(
-                    user=self.request.user, ordered=False)
-                order.coupon = get_coupon(self.request, code)
-                order.save()
+                cart.coupon = get_coupon(self.request, code)
+                cart.save()
                 messages.success(self.request, "Successfully added coupon")
-                return redirect("core:checkout")
+                messages.info(self.request, f"Coupon {cart.coupon.amount}")
+                return redirect('orders:create-order')
             except ObjectDoesNotExist:
                 messages.info(self.request, "You do not have an active order")
-                return redirect("core:checkout")
+                return redirect('cart:cart-summary')
