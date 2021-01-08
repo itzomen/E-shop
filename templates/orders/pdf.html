@@ -33,6 +33,12 @@
             <td class="num">${{ item.get_cost }}</td>
         </tr>
       {% endfor %}
+      {% if order.coupon %}
+      <tr class="total">
+        <td colspan="3">{{ order.coupon }} Coupon</td>
+        <td class="num">{{ order.discount }}% OFF</td>
+      </tr>
+      {% endif %}
       <tr class="total">
         <td colspan="3">Total</td>
         <td class="num">${{ order.total }}</td>

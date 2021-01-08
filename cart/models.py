@@ -47,12 +47,7 @@ class Cart(models.Model):
     def get_total(self):
         total = 0
         #calculate total price of items in cart
-        # for cart_item in self.items.all():
-        #     total += cart_item.item_final_price()
-        total = sum(cart_item.item_final_price() for cart_item in self.items.all())
-        # if self.coupon:
-        #     total -= self.coupon.amount
-            
+        total = sum(cart_item.item_final_price() for cart_item in self.items.all())      
         return total - total * (self.discount / Decimal(100))
 
     def count(self):

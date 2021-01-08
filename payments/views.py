@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from django.contrib import messages
 from orders.models import Order, OrderItems
+from cart.models import Coupon
 # instantiate Braintree payment gateway
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -68,6 +69,11 @@ def payment_process(request):
 def payment_done(request):
     order_id = request.session.get('order_id')
     order = get_object_or_404(Order, id=order_id)
+    coupon_id = request.session.get('coupon_id')
+    coupon = get_object_or_404(Coupon, id=coupon_id)
+
+    order.coupon = coupon
+    order.discount = coupon.discount
     order.paid = True
     order.save()
     return render(request, 'payments/paid.html')

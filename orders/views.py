@@ -87,15 +87,10 @@ class OrderView(View):
         else:
             messages.info(self.request, "Add items to cart")
             return redirect('cart:cart-summary')
-    # else:
-    #     form = OrderForm()
-    # return render(request, 'orders/create.html',
-    #             {'items': items, 'form': form, 'total': total})
 
 def get_coupon(request, code):
     now = timezone.now()
     try:
-        #coupon = Coupon.objects.get(code=code)
         coupon = Coupon.objects.get(code__iexact=code,
                                         valid_from__lte=now,
                                         valid_to__gte=now,
@@ -115,6 +110,7 @@ class AddCouponView(View):
             if cart.coupon:
                 cart.discount = cart.coupon.discount
                 cart.save()
+                self.request.session['coupon_id'] = cart.coupon.id
                 messages.success(self.request, "Successfully added coupon")
                 messages.info(self.request, f"{cart.coupon.discount}% OFF Coupon")
             
