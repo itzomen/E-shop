@@ -15,16 +15,25 @@
         <div class="col-3">
             <h1>Checkout</h1>
             <div class="order-info">
-            <h3>Your order</h3>
-            <ul>
-            {% for item in items %}
-            <li>
-            {{ item.quantity }}x {{ item.item.name }}
-            <span>${{ item.item_final_price }}</span>
-            </li>
-            {% endfor %}
-            </ul>
-            <p>Total: $${{ total }}</p>
+                <h3>Your order</h3>
+                <ul>
+                {% for item in items %}
+                <li>
+                {{ item.quantity }}x {{ item.item.name }}
+                <span>${{ item.item_final_price }}</span>
+                </li>
+                {% endfor %}
+                </ul>
+                <p>Total: ${{ total }}</p>
+            </div>
+            <br>
+            <div class="coupon">
+                <h2>Add Coupon</h2>
+                <form method="post" class="order-form">
+                    {{ coupon_form.as_p }}
+                    <p><input type="submit" value="Add Coupon"></p>
+                    {% csrf_token %}
+                </form>
             </div>
         </div>
     </div>

@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import CartItem, Cart
+from .models import Cart, Coupon
 
-# Register your models here.
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
     '''Admin View for Cart'''
@@ -17,3 +16,4 @@ class CartAdmin(admin.ModelAdmin):
     search_fields = [
         'user'
     ]
+admin.site.register(Coupon)

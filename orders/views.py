@@ -1,9 +1,11 @@
 from django.forms.forms import Form
 from django.shortcuts import render, redirect
 from .models import OrderItems
-from cart.models import Cart
-from .forms import OrderForm
+from cart.models import Cart, Coupon
+from .forms import OrderForm, CouponForm
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic import View
 from .tasks import email_order
 #used payments app
 from django.urls import reverse
@@ -35,14 +37,48 @@ def admin_order_pdf(request, order_id):
             settings.STATIC_ROOT + 'css/pdf.css')])
     return response
 
+def get_coupon(request, code):
+    try:
+        coupon = Coupon.objects.get(code=code)
+        return coupon
+    except ObjectDoesNotExist:
+        messages.info(request, "This coupon does not exist")
+        return redirect("orders:create-order")
 
-def create_order(request):
-    cart = Cart.objects.get(user=request.user)
-    user = cart.user
-    total = cart.get_total()
-    items = cart.items.all()
-    if request.method == 'POST':
-        form = OrderForm(request.POST)
+
+class OrderView(View):
+    def get(self, *args, **kwargs):
+        
+        cart = Cart.objects.get(user=self.request.user)
+        total = cart.get_total()
+        items = cart.items.all()
+        form = OrderForm()
+        coupon_form = CouponForm()
+        context = {
+            'form': form,
+            'coupon_form': coupon_form,
+            'items': items,
+            'total': total,
+        }
+        return render(self.request, 'orders/create.html', context)
+
+    def post(self, *args, **kwargs):
+
+        cart = Cart.objects.get(user=self.request.user)
+    
+        coupon_form = CouponForm(self.request.POST or None)
+        if coupon_form.is_valid():
+            code = coupon_form.cleaned_data.get('code')
+            cart.coupon = get_coupon(self.request, code)
+            cart.save()
+            messages.success(self.request, "Successfully added coupon")
+            return redirect("orders:create-order")
+
+        user = cart.user
+        total = cart.get_total()
+        items = cart.items.all()
+
+        form = OrderForm(self.request.POST or None)
         if items:
             if form.is_valid():
                 order_form = form.save(commit=False)
@@ -59,15 +95,33 @@ def create_order(request):
                 # delay to launch the task asynchronously
                 email_order.delay(order_form.id)
                 # set the order and orderitems id in session
-                request.session['order_id'] = order_form.id
+                self.request.session['order_id'] = order_form.id
                 # redirect for payment
-                messages.info(request, f"Your order was created")
+                messages.info(self.request, f"Your order was created")
                 return redirect(reverse('payments:process'))
                 # messages.info(request, f"Your order was created")
         else:
-            messages.info(request, "Add items to cart")
+            messages.info(self.request, "Add items to cart")
             return redirect('cart:cart-summary')
-    else:
-        form = OrderForm()
-    return render(request, 'orders/create.html',
-                  {'items': items, 'form': form, 'total': total})
+    # else:
+    #     form = OrderForm()
+    # return render(request, 'orders/create.html',
+    #             {'items': items, 'form': form, 'total': total})
+
+
+
+class AddCouponView(View):
+    def post(self, *args, **kwargs):
+        coupon_form = CouponForm(self.request.POST or None)
+        if coupon_form.is_valid():
+            try:
+                code = coupon_form.cleaned_data.get('code')
+                order = Order.objects.get(
+                    user=self.request.user, ordered=False)
+                order.coupon = get_coupon(self.request, code)
+                order.save()
+                messages.success(self.request, "Successfully added coupon")
+                return redirect("core:checkout")
+            except ObjectDoesNotExist:
+                messages.info(self.request, "You do not have an active order")
+                return redirect("core:checkout")

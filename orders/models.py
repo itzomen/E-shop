@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from shop.models import Item
+from cart.models import Coupon
 
 
 class Order(models.Model):
@@ -11,7 +12,7 @@ class Order(models.Model):
     address = models.CharField(max_length=100)
 
     coupon = models.ForeignKey(
-        'Coupon', on_delete=models.SET_NULL, blank=True, null=True)
+        Coupon , on_delete=models.SET_NULL, blank=True, null=True)
         
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
@@ -49,9 +50,3 @@ class OrderItems(models.Model):
     def get_cost(self):
         return self.price * self.quantity
 
-class Coupon(models.Model):
-    code = models.CharField(max_length=15)
-    amount = models.FloatField()
-
-    def __str__(self):
-        return self.code
