@@ -3,6 +3,9 @@
 
 ## [Preview E-shop](https://itzomen.pythonanywhere.com)
 
+## TODO
+- Add translation feature to the website
+
 # Set up
 Steps:
 
