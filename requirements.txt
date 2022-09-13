@@ -18,7 +18,7 @@ defusedxml==0.6.0
 Django==3.1.13
 django-allauth==0.42.0
 django-crispy-forms==1.9.2
-flower==0.9.5
+flower==1.2.0
 html5lib==1.1
 humanize==3.0.1
 idna==2.10
